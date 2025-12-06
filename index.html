@@ -1,0 +1,837 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    
+    <!-- Primary Meta Tags -->
+    <title>Ninjafy Tools - Professional Browser-Based Video Tools</title>
+    <meta name="title" content="Ninjafy Tools - Professional Browser-Based Video Tools">
+    <meta name="description" content="Professional-grade video streaming tools including VDO.Ninja, Meshcast.io, Caption.Ninja, Comms.cam, and more. A complete ecosystem for professional video production and streaming, used by over 1.2 million professionals monthly.">
+    <meta name="author" content="Steve Seguin">
+    <meta name="copyright" content="© 2024 Steve Seguin">
+    <meta name="license" content="https://github.com/steveseguin/vdo.ninja/LICENSE.md">
+    <meta name="sourcecode" content="https://github.com/steveseguin/vdo.ninja">
+    <meta name="robots" content="index, follow">
+    
+    <!-- Canonical -->
+    <link rel="canonical" href="https://vdo.ninja/">
+    
+    <!-- Open Graph / Facebook -->
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://vdo.ninja/">
+    <meta property="og:title" content="Ninjafy Tools - Professional Browser-Based Video Tools">
+    <meta property="og:description" content="Professional-grade video streaming tools including VDO.Ninja, Meshcast.io, Caption.Ninja, Comms.cam, and more. A complete ecosystem for professional video production and streaming, used by over 1.2 million professionals monthly.">
+    <meta property="og:image" content="https://vdo.ninja/media/vdoNinja_logo_full.png">
+    <meta property="og:image:width" content="1200">
+    <meta property="og:image:height" content="630">
+    <meta property="og:site_name" content="Ninjafy Tools">
+    
+    <!-- Twitter -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:creator" content="@SteveSeguin">
+    <meta name="twitter:title" content="Ninjafy Tools - Professional Video Tools">
+	<meta name="twitter:description" content="Professional-grade video streaming tools including VDO.Ninja, Meshcast.io, Caption.Ninja, Comms.cam, and more. A complete ecosystem for professional video production and streaming, used by over 1.2 million professionals monthly.">
+    <meta name="twitter:image" content="https://vdo.ninja/media/vdoNinja_logo_full.png">
+    
+    <!-- Theme Colors -->
+    <meta name="theme-color" content="#0f131d">
+    <meta name="msapplication-TileColor" content="#da532c">
+    
+    <!-- Icons -->
+    <link rel="icon" type="image/png" sizes="32x32" href="./media/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="./media/favicon-16x16.png">
+    <link rel="shortcut icon" href="./media/favicon.ico">
+    
+    <!-- Documentation -->
+    <link rel="alternate" type="text/markdown" href="/rawdoc.md" title="Developer and User Documentation">
+    
+    <!-- Keywords for SEO -->
+    <meta name="keywords" content="video streaming, browser video, WebRTC, OBS Studio, esports streaming, professional broadcasting, remote production, live streaming, video production, chat management">
+    
+    <!-- Additional Meta Information -->
+    <meta name="application-name" content="Ninjafy Tools">
+    <meta name="mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-title" content="Ninjafy Tools">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    
+    <!-- Preconnect to Important Domains -->
+    <link rel="preconnect" href="https://vdo.ninja">
+    <link rel="preconnect" href="https://github.com">
+
+    <!-- IE Redirect Script (preserved from original) -->
+    <script type="text/javascript">
+        try {
+            var msie = window.navigator.userAgent.indexOf("MSIE ");
+            if (msie>0 || !!navigator.userAgent.match(/Trident.*rv\:11\./)){ 
+                alert("Internet Explorer is not supported.\n\nPlease consider using Microsoft Edge or Google Chrome instead\n\nYou will be forwarded to the download page for MS Edge now.");
+                console.error("INTERNET EXPLORER IS EVIL");
+                document.write("Internet Explorer is not supported");
+                window.location = "https://www.microsoft.com/edge";
+            }
+        } catch(e){
+            console.error(e);
+        }
+    </script>
+    <style>
+        :root {
+            --primary: #2d3748;
+            --secondary: #4a5568;
+            --accent: #4299e1;
+            --accent-dark: #2b6cb0;
+            --background: #fff;
+            --text: #1a202c;
+            --success: #48bb78;
+            --card-bg: #ffffff;
+            --transition: all 0.3s ease;
+        }
+
+        @media (prefers-color-scheme: dark) {
+            :root {
+                --primary: #1a202c;
+                --secondary: #2d3748;
+                --background: #171923;
+                --text: #f7fafc;
+                --card-bg: #2d3748;
+            }
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: system-ui, -apple-system, sans-serif;
+            line-height: 1.6;
+            color: var(--text);
+            background: var(--background);
+            transition: var(--transition);
+            overflow-x: hidden;
+        }
+
+        .hero {
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            color: white;
+            padding: 6rem 2rem;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero::after {
+            content: '';
+            position: absolute;
+            width: 200%;
+            height: 200%;
+            background: linear-gradient(45deg, rgba(66, 153, 225, 0.1) 0%, transparent 100%);
+            animation: rotate 20s linear infinite;
+            top: -50%;
+            left: -50%;
+            z-index: 1;
+        }
+
+        @keyframes rotate {
+            from { transform: rotate(0deg); }
+            to { transform: rotate(360deg); }
+        }
+
+        .hero-content {
+            position: relative;
+            z-index: 2;
+        }
+
+        .hero h1 {
+            font-size: 4rem;
+            margin-bottom: 1rem;
+            animation: slideUp 1s ease-out;
+        }
+
+        .hero p {
+            font-size: 1.5rem;
+            margin-bottom: 2rem;
+            animation: slideUp 1s ease-out 0.2s backwards;
+        }
+
+        @keyframes slideUp {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .stats {
+            background: var(--accent);
+            color: white;
+            padding: 1.5rem;
+            text-align: center;
+            display: flex;
+            justify-content: space-around;
+            flex-wrap: wrap;
+            gap: 2rem;
+        }
+
+        .stat-item {
+            animation: fadeIn 0.5s ease-out;
+        }
+
+        .stat-number {
+            font-size: 2rem;
+            font-weight: bold;
+            margin-bottom: 0.5rem;
+        }
+
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 2rem;
+        }
+
+        .products {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 2rem;
+            margin: 2rem 0;
+        }
+
+        .product-card {
+            background: var(--card-bg);
+            border-radius: 1rem;
+            padding: 2rem;
+            transition: var(--transition);
+            position: relative;
+            overflow: hidden;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+
+        .product-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 4px;
+            background: var(--accent);
+            transform: scaleX(0);
+            transform-origin: left;
+            transition: var(--transition);
+        }
+
+        .product-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 15px rgba(0, 0, 0, 0.1);
+        }
+
+        .product-card:hover::before {
+            transform: scaleX(1);
+        }
+
+        .product-card h2 {
+            margin-bottom: 1rem;
+            color: var(--accent);
+        }
+
+        .features {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+            margin: 4rem 0;
+        }
+
+        .feature {
+            padding: 2rem;
+            text-align: center;
+            background: var(--card-bg);
+            border-radius: 1rem;
+            transition: var(--transition);
+        }
+
+        .feature:hover {
+            transform: translateY(-5px);
+        }
+
+        .feature-icon {
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+            color: var(--accent);
+        }
+
+        .cta {
+            background: var(--accent);
+            color: white;
+            padding: 1rem 2rem;
+            border-radius: 0.5rem;
+            text-decoration: none;
+            display: inline-block;
+            margin-top: 1.5rem;
+            transition: var(--transition);
+            border: none;
+            cursor: pointer;
+            font-weight: 600;
+        }
+
+        .cta:hover {
+            background: var(--accent-dark);
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(66, 153, 225, 0.3);
+        }
+
+        nav {
+            background: var(--primary);
+            padding: 1rem 2rem;
+            position: fixed;
+            width: 100%;
+            top: 0;
+            z-index: 1000;
+            transition: var(--transition);
+        }
+
+        nav.scrolled {
+            background: rgba(45, 55, 72, 0.95);
+            backdrop-filter: blur(10px);
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+
+        .nav-content {
+            max-width: 1400px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .nav-logo {
+            font-size: 1.5rem;
+            font-weight: bold;
+            color: white;
+            text-decoration: none;
+        }
+
+        nav ul {
+            display: flex;
+            gap: 2rem;
+            list-style: none;
+        }
+
+        nav a {
+            color: white;
+            text-decoration: none;
+            transition: var(--transition);
+            position: relative;
+        }
+
+        nav a::after {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            left: 0;
+            width: 100%;
+            height: 2px;
+            background: var(--accent);
+            transform: scaleX(0);
+            transition: var(--transition);
+        }
+
+        nav a:hover::after {
+            transform: scaleX(1);
+        }
+
+        .mobile-menu {
+            display: none;
+            background: none;
+            border: none;
+            color: white;
+            font-size: 1.5rem;
+            cursor: pointer;
+        }
+
+        @media (max-width: 768px) {
+            .mobile-menu {
+                display: block;
+            }
+
+            nav ul {
+                display: none;
+                position: absolute;
+                top: 100%;
+                left: 0;
+                right: 0;
+                background: var(--primary);
+                flex-direction: column;
+                padding: 1rem;
+                text-align: center;
+            }
+
+            nav.open ul {
+                display: flex;
+            }
+        }
+
+        footer {
+            background: var(--primary);
+            color: white;
+            padding: 4rem 2rem;
+            margin-top: 4rem;
+        }
+
+        .footer-content {
+            max-width: 1400px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+        }
+
+        .footer-section h3 {
+            margin-bottom: 1rem;
+            color: var(--accent);
+        }
+
+        .footer-section ul {
+            list-style: none;
+        }
+
+        .footer-section a {
+            color: white;
+            text-decoration: none;
+            transition: var(--transition);
+        }
+
+        .footer-section a:hover {
+            color: var(--accent);
+        }
+
+        .social-links {
+            display: flex;
+            gap: 1rem;
+            margin-top: 1rem;
+        }
+
+        .social-links a {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background: var(--accent);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: var(--transition);
+        }
+
+        .social-links a:hover {
+            background: var(--accent-dark);
+            transform: translateY(-2px);
+        }
+
+        .section-title {
+            text-align: center;
+            margin-bottom: 3rem;
+            position: relative;
+            padding-bottom: 1rem;
+        }
+
+        .section-title::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 100px;
+            height: 3px;
+            background: var(--accent);
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        .scroll-to-top {
+            position: fixed;
+            bottom: 2rem;
+            right: 2rem;
+            background: var(--accent);
+            color: white;
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-decoration: none;
+            opacity: 0;
+            transition: var(--transition);
+            pointer-events: none;
+        }
+
+        .scroll-to-top.visible {
+            opacity: 1;
+            pointer-events: all;
+        }
+
+        .scroll-to-top:hover {
+            background: var(--accent-dark);
+            transform: translateY(-2px);
+        }
+    </style>
+	<link rel="docs" href="/docs.md" title="Help Documentation">
+</head>
+<body>
+    <nav id="nav">
+        <div class="nav-content">
+            <a href="#" class="nav-logo">Ninjafy Tools</a>
+            <button class="mobile-menu">☰</button>
+            <ul>
+                <li><a href="#products">Products</a></li>
+                <li><a href="#features">Features</a></li>
+                <li><a href="#about">About</a></li>
+                <li><a href="https://github.com/steveseguin/" target="_blank">GitHub</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <section class="hero">
+        <div class="hero-content">
+            <h1>VDO.Ninja</h1>
+            <p>Transform Your Browser into a Professional Video Studio</p>
+            <a href="https://vdo.ninja" class="cta">Start Creating</a>
+        </div>
+    </section>
+
+    <div class="stats">
+        
+        <div class="stat-item">
+            <div class="stat-number">100K+</div>
+            <div>SocialStream Users</div>
+        </div>
+		<div class="stat-item">
+            <div class="stat-number">1M+</div>
+            <div>VDO.Ninja Users</div>
+        </div>
+        <div class="stat-item">
+            <div class="stat-number">100%</div>
+            <div>Free To Use</div>
+        </div>
+    </div>
+
+    <div class="container">
+        <section id="products">
+            <h2 class="section-title">Our Products</h2>
+            <div class="products">
+                <div class="product-card">
+                    <h2>VDO.Ninja</h2>
+                    <p>Experience professional-grade video streaming directly in your browser. Perfect for remote production, podcasting, and live events. No downloads required, just pure streaming power at your fingertips.</p>
+                    <a href="https://vdo.ninja" class="cta">Get Started</a>
+                </div>
+				<div class="product-card">
+                    <h2>SocialStream.Ninja</h2>
+                    <p>Advanced chat management platform that aggregates live chat from hundreds of sources including Twitch and YouTube. Features creator overlays, highlighted messages, donation tracking, notifications, Text-to-Speech, AI chatbots, auto responders, and cross-platform message relaying.</p>
+                    <a href="https://socialstream.ninja" class="cta">Manage Your Chat</a>
+                </div>
+                <div class="product-card">
+                    <h2>Caption.Ninja</h2>
+                    <p>Break language barriers with real-time captioning and translation services. Perfect for international broadcasts, educational content, and accessibility compliance.</p>
+                    <a href="https://caption.ninja" class="cta">Try Now</a>
+                </div>
+                <div class="product-card">
+                    <h2>Versus.Cam</h2>
+                    <p>Purpose-built for esports broadcasting with optimized controls for high-quality, low-latency streaming. Features an intuitive control board for monitoring stream quality, adjusting settings, and managing multiple incoming feeds in real-time.</p>
+                    <a href="https://versus.cam" class="cta">Start Broadcasting</a>
+                </div>
+                <div class="product-card">
+                    <h2>ElectronCapture</h2>
+                    <p>Capture and stream high-quality video from any application window with unprecedented control and flexibility.</p>
+                    <a href="https://electroncapture.app" class="cta">Download</a>
+                </div>
+                <div class="product-card">
+                    <h2>Raspberry.Ninja</h2>
+                    <p>Transform your Raspberry Pi, SBC, or other computer into a powerful headless video streaming device. Perfect for IoT projects, AI on the edge, and remote camera setups.</p>
+                    <a href="https://raspberry.ninja" class="cta">Explore</a>
+                </div>
+				<div class="product-card">
+                    <h2>Meshcast.io</h2>
+                    <p>Free Selective Forwarding Unit (SFU) service supporting up to 100 concurrent users. Features WHIP input support and seamless VDO.Ninja integration for professional broadcasting at scale.</p>
+                    <a href="https://meshcast.io" class="cta">Scale Your Stream</a>
+                </div>
+                <div class="product-card">
+                    <h2>Comms.cam</h2>
+                    <p>Web-based intercom service for professional background communication. Manage multiple groups, control access, and coordinate your team with flexible listening options. Free and open source.</p>
+                    <a href="https://comms.cam" class="cta">Start Communicating</a>
+                </div>
+                <div class="product-card">
+                    <h2>Invite.cam</h2>
+                    <p>Advanced guest management system with URL obfuscation, social sign-on protection, and professional lobby/green room options. Server-based security for your streaming sessions.</p>
+                    <a href="https://invite.cam" class="cta">Secure Your Stream</a>
+                </div>
+            </div>
+        </section>
+
+        <section id="features" class="features">
+            <div class="feature">
+                <div class="feature-icon">🚀</div>
+                <h3>No Downloads Needed</h3>
+                <p>Get started instantly with zero installation. VDO.Ninja runs directly in your browser.</p>
+            </div>
+            <div class="feature">
+                <div class="feature-icon">⚡</div>
+                <h3>Ultra-Low Latency</h3>
+                <p>Experience real-time interaction with minimal delay, perfect for live productions and remote collaboration.</p>
+            </div>
+            <div class="feature">
+                <div class="feature-icon">🎥</div>
+                <h3>Professional Quality</h3>
+                <p>Broadcast-grade video quality with support for high resolution and frame rates.</p>
+            </div>
+            <div class="feature">
+                <div class="feature-icon">🔒</div>
+                <h3>Secure & Private</h3>
+                <p>End-to-end encrypted communications with no data storage on servers.</p>
+            </div>
+            <div class="feature">
+                <div class="feature-icon">🛠️</div>
+                <h3>OBS Integration</h3>
+                <p>Seamlessly works with OBS Studio and other broadcasting software.</p>
+            </div>
+            <div class="feature">
+                <div class="feature-icon">💻</div>
+                <h3>Open Source</h3>
+                <p>Customizable, self-hostable, and free to use forever.</p>
+            </div>
+			<div class="feature">
+                <div class="feature-icon">📱</div>
+                <h3>Native Mobile Apps</h3>
+                <p>Official Android and iOS apps available, with HDMI input support for remote camera streaming on Android.</p>
+            </div>
+            <div class="feature">
+                <div class="feature-icon">🎨</div>
+                <h3>Built-in Tools</h3>
+                <p>Access powerful browser-based mixer and whiteboard features, with direct publishing to WHIP, VDO.Ninja or Twitch.</p>
+            </div>
+            <div class="feature">
+                <div class="feature-icon">🎵</div>
+                <h3>Professional Audio</h3>
+                <p>Multi-channel audio support with Hi-Fi capabilities including PCM and 510kbps stereo OPUS for crystal-clear sound.</p>
+            </div>
+            <div class="feature">
+                <div class="feature-icon">🎬</div>
+                <h3>Advanced Codecs</h3>
+                <p>Comprehensive codec support including AV1, H.265, H.264, VP8, VP9, with optional WebCodecs for frame-accurate sync.</p>
+            </div>
+            <div class="feature">
+                <div class="feature-icon">☁️</div>
+                <h3>Cloud Integration</h3>
+                <p>Direct-to-Google-Drive video saving for flawless backup streams, ensuring your content is always safe.</p>
+            </div>
+            <div class="feature">
+                <div class="feature-icon">🌐</div>
+                <h3>Enterprise Ready</h3>
+                <p>Free TURN/SFU server support with WHIP publishing and WHEP ingest capabilities for professional deployments.</p>
+            </div>
+            <div class="feature">
+                <div class="feature-icon">🤖</div>
+                <h3>AI Integration</h3>
+                <p>SocialStream.Ninja includes AI chatbot support and manages over 100 social platforms including TikTok and X.com.</p>
+            </div>
+            <div class="feature">
+                <div class="feature-icon">🔒</div>
+                <h3>Enhanced Privacy</h3>
+                <p>Invite.cam support for URL obfuscation, ensuring secure and private streaming sessions.</p>
+            </div>
+            <div class="feature">
+                <div class="feature-icon">⭐</div>
+                <h3>Trusted by Leaders</h3>
+                <p>Used by major organizations including NASA, AWS, and Twitch for professional broadcasting needs.</p>
+            </div>
+			<div class="feature">
+                <div class="feature-icon">🌈</div>
+                <h3>Virtual Backgrounds</h3>
+                <p>Support for virtual backgrounds, video backgrounds, and custom image overlays without requiring any external software or green screens.</p>
+            </div>
+        </section>
+
+        <section id="about">
+            <h2 class="section-title">About VDO.Ninja</h2>
+            <div style="max-width: 800px; margin: 0 auto; text-align: center;">
+                <p style="font-size: 1.2rem; margin-bottom: 2rem;">
+                    Created by Steve Seguin, VDO.Ninja began as OBS.Ninja and has evolved into a comprehensive ecosystem of professional video tools. Our mission is to democratize professional video production by making it accessible directly through the browser.
+                </p>
+                <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 2rem; margin: 3rem 0;">
+                    <div>
+                        <h3 style="color: var(--accent); margin-bottom: 1rem;">Our Mission</h3>
+                        <p>To provide professional-grade creator tools that are accessible to everyone, everywhere</p>
+                    </div>
+                    <div>
+                        <h3 style="color: var(--accent); margin-bottom: 1rem;">Open Source</h3>
+                        <p>We build trust through action. Our tools are offered as open source.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="testimonials" style="margin: 4rem 0;">
+            <h2 class="section-title">What Users Say</h2>
+            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 2rem;">
+                <div class="product-card">
+                    <p style="font-style: italic; margin-bottom: 1rem;">"VDO.Ninja revolutionized our remote production workflow. The quality and reliability are outstanding."</p>
+                    <p style="color: var(--accent);">- Professional Broadcaster</p>
+                </div>
+                <div class="product-card">
+                    <p style="font-style: italic; margin-bottom: 1rem;">"SocialStream.Ninja has transformed how we manage our community interactions across platforms."</p>
+                    <p style="color: var(--accent);">- Content Creator</p>
+                </div>
+                <div class="product-card">
+                    <p style="font-style: italic; margin-bottom: 1rem;">"The ease of use and professional features make this a must-have tool for any serious streamer."</p>
+                    <p style="color: var(--accent);">- Twitch Streamer</p>
+                </div>
+            </div>
+        </section>
+    </div>
+    </div>
+
+    <footer>
+        <div class="footer-content">
+            <div class="footer-section">
+                <h3>Video Tools</h3>
+                <ul>
+                    <li><a href="https://vdo.ninja">VDO.Ninja</a></li>
+                    <li><a href="https://electroncapture.app">ElectronCapture</a></li>
+                    <li><a href="https://raspberry.ninja">Raspberry.Ninja</a></li>
+                    <li><a href="https://versus.cam">Versus.Cam</a></li>
+                </ul>
+            </div>
+            <div class="footer-section">
+                <h3>Production Tools</h3>
+                <ul>
+                    <li><a href="https://meshcast.io">Meshcast.io</a></li>
+                    <li><a href="https://comms.cam">Comms.cam</a></li>
+                    <li><a href="https://invite.cam">Invite.cam</a></li>
+                    <li><a href="https://caption.ninja">Caption.Ninja</a></li>
+                </ul>
+            </div>
+            <div class="footer-section">
+                <h3>Resources</h3>
+                <ul>
+                    <li><a href="https://github.com/steveseguin/vdo.ninja">Documentation</a></li>
+                    <li><a href="https://docs.vdo.ninja">API Reference</a></li>
+                    <li><a href="https://www.reddit.com/r/VDONinja">Community Forum</a></li>
+                    <li><a href="https://updates.vdo.ninja">Updates</a></li>
+                </ul>
+            </div>
+            <div class="footer-section">
+                <h3>Connect</h3>
+                <div class="social-links">
+                    <a href="https://github.com/steveseguin/" aria-label="GitHub">
+                        <svg width="24" height="24" viewBox="0 0 24 24" fill="white">
+                            <path d="M12 0C5.374 0 0 5.373 0 12c0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23A11.509 11.509 0 0112 5.803c1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576C20.566 21.797 24 17.3 24 12c0-6.627-5.373-12-12-12z"/>
+                        </svg>
+                    </a>
+                    <a href="https://x.com/xyster" aria-label="Twitter">
+                        <svg width="24" height="24" viewBox="0 0 24 24" fill="white">
+                            <path d="M23.953 4.57a10 10 0 01-2.825.775 4.958 4.958 0 002.163-2.723c-.951.555-2.005.959-3.127 1.184a4.92 4.92 0 00-8.384 4.482C7.69 8.095 4.067 6.13 1.64 3.162a4.822 4.822 0 00-.666 2.475c0 1.71.87 3.213 2.188 4.096a4.904 4.904 0 01-2.228-.616v.06a4.923 4.923 0 003.946 4.827 4.996 4.996 0 01-2.212.085 4.936 4.936 0 004.604 3.417 9.867 9.867 0 01-6.102 2.105c-.39 0-.779-.023-1.17-.067a13.995 13.995 0 007.557 2.209c9.053 0 13.998-7.496 13.998-13.985 0-.21 0-.42-.015-.63A9.935 9.935 0 0024 4.59z"/>
+                        </svg>
+                    </a>
+                    <a href="https://discord.vdo.ninja" aria-label="Discord">
+                        <svg width="24" height="24" viewBox="0 0 24 24" fill="white">
+                            <path d="M20.317 4.37a19.791 19.791 0 00-4.885-1.515.074.074 0 00-.079.037c-.21.375-.444.864-.608 1.25a18.27 18.27 0 00-5.487 0 12.64 12.64 0 00-.617-1.25.077.077 0 00-.079-.037A19.736 19.736 0 003.677 4.37a.07.07 0 00-.032.027C.533 9.046-.32 13.58.099 18.057a.082.082 0 00.031.057 19.9 19.9 0 005.993 3.03.078.078 0 00.084-.028 14.09 14.09 0 001.226-1.994.076.076 0 00-.041-.106 13.107 13.107 0 01-1.872-.892.077.077 0 01-.008-.128 10.2 10.2 0 00.372-.292.074.074 0 01.077-.01c3.928 1.793 8.18 1.793 12.062 0a.074.074 0 01.078.01c.12.098.246.198.373.292a.077.077 0 01-.006.127 12.299 12.299 0 01-1.873.892.077.077 0 00-.041.107c.36.698.772 1.362 1.225 1.993a.076.076 0 00.084.028 19.839 19.839 0 006.002-3.03.077.077 0 00.032-.054c.5-5.177-.838-9.674-3.549-13.66a.061.061 0 00-.031-.03zM8.02 15.33c-1.183 0-2.157-1.085-2.157-2.419 0-1.333.956-2.419 2.157-2.419 1.21 0 2.176 1.096 2.157 2.42 0 1.333-.956 2.418-2.157 2.418zm7.975 0c-1.183 0-2.157-1.085-2.157-2.419 0-1.333.955-2.419 2.157-2.419 1.21 0 2.176 1.096 2.157 2.42 0 1.333-.946 2.418-2.157 2.418z"/>
+                        </svg>
+                    </a>
+                </div>
+            </div>
+        </div>
+        <div style="text-align: center; margin-top: 2rem; padding-top: 2rem; border-top: 1px solid rgba(255,255,255,0.1);">
+            <p>© 2024 VDO.Ninja - Created by Steve Seguin</p>
+        </div>
+    </footer>
+
+    <a href="#" class="scroll-to-top" id="scrollTop" aria-label="Scroll to top">↑</a>
+
+    <script>
+        // Navigation handling
+        const nav = document.getElementById('nav');
+        const mobileMenu = document.querySelector('.mobile-menu');
+        const scrollTop = document.getElementById('scrollTop');
+
+        mobileMenu.addEventListener('click', () => {
+            nav.classList.toggle('open');
+        });
+
+        // Smooth scroll for navigation links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const href = this.getAttribute('href');
+                if (href === '#') {
+                    window.scrollTo({
+                        top: 0,
+                        behavior: 'smooth'
+                    });
+                } else {
+                    const target = document.querySelector(href);
+                    if (target) {
+                        target.scrollIntoView({
+                            behavior: 'smooth'
+                        });
+                    }
+                }
+                if (nav.classList.contains('open')) {
+                    nav.classList.remove('open');
+                }
+            });
+        });
+
+        // Scroll handling
+        let lastScroll = 0;
+        window.addEventListener('scroll', () => {
+            const currentScroll = window.pageYOffset;
+
+            // Navigation bar effects
+            if (currentScroll > 50) {
+                nav.classList.add('scrolled');
+            } else {
+                nav.classList.remove('scrolled');
+            }
+
+            // Scroll to top button visibility
+            if (currentScroll > 500) {
+                scrollTop.classList.add('visible');
+            } else {
+                scrollTop.classList.remove('visible');
+            }
+
+            lastScroll = currentScroll;
+        });
+
+        // Intersection Observer for animation
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -50px 0px'
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.style.opacity = '1';
+                    entry.target.style.transform = 'translateY(0)';
+                }
+            });
+        }, observerOptions);
+
+        // Animate elements on scroll
+        document.querySelectorAll('.product-card, .feature').forEach(el => {
+            el.style.opacity = '0';
+            el.style.transform = 'translateY(20px)';
+            el.style.transition = 'opacity 0.5s ease-out, transform 0.5s ease-out';
+            observer.observe(el);
+        });
+    </script>
+</body>
+</html>
