@@ -115,32 +115,44 @@
         }
 
         :root {
-            --bg: #fafafa;
-            --text: #1a1a1a;
-            --text-muted: #666;
-            --accent: #2563eb;
-            --accent-hover: #1d4ed8;
-            --card-bg: #fff;
-            --border: #e5e5e5;
-            --header-bg: #1a1a2e;
+            --bg: #f6f1e7;
+            --text: #1f1a14;
+            --text-muted: #6b6257;
+            --accent: #0f766e;
+            --accent-hover: #115e59;
+            --card-bg: #fffaf2;
+            --border: #e2d7c8;
+            --header-bg: #151515;
         }
 
         @media (prefers-color-scheme: dark) {
             :root {
-                --bg: #0f0f1a;
-                --text: #f0f0f0;
-                --text-muted: #999;
-                --accent: #3b82f6;
-                --accent-hover: #60a5fa;
-                --card-bg: #1a1a2e;
-                --border: #2a2a3e;
-                --header-bg: #0a0a14;
+                --bg: #12110f;
+                --text: #f3efe8;
+                --text-muted: #b2a89a;
+                --accent: #2dd4bf;
+                --accent-hover: #5eead4;
+                --card-bg: #1a1714;
+                --border: #2c2620;
+                --header-bg: #0b0b0b;
+            }
+            body {
+                background-image:
+                    radial-gradient(circle at 12% 18%, rgba(45, 212, 191, 0.14) 0%, transparent 45%),
+                    radial-gradient(circle at 85% 5%, rgba(251, 191, 36, 0.12) 0%, transparent 40%),
+                    repeating-linear-gradient(135deg, rgba(255, 255, 255, 0.04) 0 2px, transparent 2px 6px),
+                    linear-gradient(180deg, rgba(18, 17, 15, 0.9), rgba(18, 17, 15, 0.6));
             }
         }
 
         body {
-            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            font-family: "Trebuchet MS", "Lucida Sans Unicode", "Lucida Grande", Verdana, sans-serif;
             background: var(--bg);
+            background-image:
+                radial-gradient(circle at 8% 12%, rgba(245, 158, 11, 0.12) 0%, transparent 45%),
+                radial-gradient(circle at 88% 0%, rgba(14, 116, 144, 0.12) 0%, transparent 40%),
+                repeating-linear-gradient(135deg, rgba(0, 0, 0, 0.03) 0 2px, transparent 2px 6px),
+                linear-gradient(180deg, rgba(255, 255, 255, 0.5), rgba(255, 255, 255, 0));
             color: var(--text);
             line-height: 1.6;
         }
@@ -175,6 +187,7 @@
         .logo {
             font-size: 1.5rem;
             font-weight: 700;
+            font-family: "Iowan Old Style", "Palatino Linotype", "Book Antiqua", "Palatino", Georgia, serif;
             color: #fff;
             text-decoration: none;
         }
@@ -198,12 +211,24 @@
             text-decoration: none;
         }
 
+        @keyframes rise {
+            from {
+                opacity: 0;
+                transform: translateY(16px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
         /* Hero */
         .hero {
             background: var(--header-bg);
             background-image:
-                radial-gradient(circle at 20% 50%, rgba(59, 130, 246, 0.15) 0%, transparent 50%),
-                radial-gradient(circle at 80% 50%, rgba(139, 92, 246, 0.1) 0%, transparent 50%);
+                radial-gradient(circle at 20% 50%, rgba(45, 212, 191, 0.18) 0%, transparent 50%),
+                radial-gradient(circle at 75% 35%, rgba(245, 158, 11, 0.16) 0%, transparent 45%),
+                linear-gradient(130deg, rgba(255, 255, 255, 0.05), rgba(0, 0, 0, 0));
             color: #fff;
             padding: 5rem 2rem 6rem;
             text-align: center;
@@ -214,12 +239,16 @@
             width: 80px;
             height: 80px;
             margin: 0 auto 1.5rem;
+            animation: rise 0.8s ease both;
         }
 
         .hero h1 {
             font-size: 2.5rem;
             font-weight: 700;
             margin-bottom: 1rem;
+            font-family: "Iowan Old Style", "Palatino Linotype", "Book Antiqua", "Palatino", Georgia, serif;
+            animation: rise 0.8s ease both;
+            animation-delay: 0.1s;
         }
 
         .hero p {
@@ -227,6 +256,8 @@
             color: #aaa;
             max-width: 620px;
             margin: 0 auto 1.5rem;
+            animation: rise 0.8s ease both;
+            animation-delay: 0.2s;
         }
 
         .hero-stats {
@@ -235,6 +266,8 @@
             gap: 3rem;
             margin-top: 2rem;
             flex-wrap: wrap;
+            animation: rise 0.8s ease both;
+            animation-delay: 0.3s;
         }
 
         .hero-stat {
@@ -267,6 +300,20 @@
             font-size: 1.5rem;
             margin-bottom: 1.5rem;
             color: var(--text);
+            font-family: "Iowan Old Style", "Palatino Linotype", "Book Antiqua", "Palatino", Georgia, serif;
+            position: relative;
+            display: inline-block;
+        }
+
+        h2::after {
+            content: "";
+            position: absolute;
+            left: 0;
+            bottom: -6px;
+            width: 60%;
+            height: 6px;
+            background: linear-gradient(90deg, rgba(245, 158, 11, 0.5), rgba(45, 212, 191, 0.2));
+            border-radius: 999px;
         }
 
         /* Featured products */
@@ -287,11 +334,24 @@
             border: 1px solid var(--border);
             border-radius: 12px;
             padding: 2rem;
+            box-shadow: 0 1px 0 rgba(0, 0, 0, 0.04), 0 14px 30px rgba(20, 15, 10, 0.08);
+            animation: rise 0.7s ease both;
+        }
+
+        .featured-card:nth-child(1) {
+            animation-delay: 0.05s;
+            transform: rotate(-0.3deg);
+        }
+
+        .featured-card:nth-child(2) {
+            animation-delay: 0.15s;
+            transform: rotate(0.4deg);
         }
 
         .featured-card h3 {
             font-size: 1.4rem;
             margin-bottom: 0.5rem;
+            font-family: "Iowan Old Style", "Palatino Linotype", "Book Antiqua", "Palatino", Georgia, serif;
         }
 
         .featured-card .tagline {
@@ -317,17 +377,19 @@
             border-radius: 6px;
             font-weight: 500;
             font-size: 0.9rem;
-            transition: background 0.2s;
+            transition: background 0.2s, transform 0.2s;
         }
 
         .btn-primary {
             background: var(--accent);
             color: #fff;
+            box-shadow: 0 6px 16px rgba(15, 118, 110, 0.25);
         }
 
         .btn-primary:hover {
             background: var(--accent-hover);
             text-decoration: none;
+            transform: translateY(-1px);
         }
 
         .btn-secondary {
@@ -351,10 +413,21 @@
         .product-card {
             background: var(--card-bg);
             border: 1px solid var(--border);
-            border-radius: 8px;
+            border-radius: 10px;
             padding: 1.5rem;
             transition: transform 0.2s, box-shadow 0.2s;
+            box-shadow: 0 1px 0 rgba(0, 0, 0, 0.04), 0 10px 22px rgba(20, 15, 10, 0.06);
+            animation: rise 0.7s ease both;
         }
+
+        .product-card:nth-child(1) { animation-delay: 0.05s; transform: rotate(-0.2deg); }
+        .product-card:nth-child(2) { animation-delay: 0.1s; transform: rotate(0.2deg); }
+        .product-card:nth-child(3) { animation-delay: 0.15s; transform: rotate(-0.1deg); }
+        .product-card:nth-child(4) { animation-delay: 0.2s; transform: rotate(0.15deg); }
+        .product-card:nth-child(5) { animation-delay: 0.25s; transform: rotate(-0.15deg); }
+        .product-card:nth-child(6) { animation-delay: 0.3s; transform: rotate(0.1deg); }
+        .product-card:nth-child(7) { animation-delay: 0.35s; transform: rotate(-0.1deg); }
+        .product-card:nth-child(8) { animation-delay: 0.4s; transform: rotate(0.2deg); }
 
         .product-card:hover {
             transform: translateY(-2px);
@@ -369,6 +442,8 @@
             display: flex;
             align-items: center;
             justify-content: center;
+            position: relative;
+            box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.35), 0 10px 16px rgba(0, 0, 0, 0.18);
         }
 
         .product-icon svg {
@@ -376,9 +451,28 @@
             height: 24px;
         }
 
+        .product-icon::after {
+            content: "";
+            position: absolute;
+            inset: 6px 5px 4px 7px;
+            border: 1px dashed rgba(255, 255, 255, 0.5);
+            border-radius: 6px;
+            opacity: 0.6;
+            pointer-events: none;
+        }
+
+        .product-card:nth-child(odd) .product-icon {
+            transform: rotate(-3deg);
+        }
+
+        .product-card:nth-child(even) .product-icon {
+            transform: rotate(2deg);
+        }
+
         .product-card h3 {
             font-size: 1.1rem;
             margin-bottom: 0.5rem;
+            font-family: "Iowan Old Style", "Palatino Linotype", "Book Antiqua", "Palatino", Georgia, serif;
         }
 
         .product-card p {
@@ -416,11 +510,31 @@
             align-items: center;
             justify-content: center;
             margin-bottom: 1rem;
+            position: relative;
+            box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.25), 0 12px 20px rgba(0, 0, 0, 0.2);
         }
 
         .featured-icon svg {
             width: 32px;
             height: 32px;
+        }
+
+        .featured-icon::after {
+            content: "";
+            position: absolute;
+            inset: 7px;
+            border: 1px dashed rgba(255, 255, 255, 0.45);
+            border-radius: 8px;
+            opacity: 0.6;
+            pointer-events: none;
+        }
+
+        .featured-card:nth-child(odd) .featured-icon {
+            transform: rotate(-2deg);
+        }
+
+        .featured-card:nth-child(even) .featured-icon {
+            transform: rotate(2deg);
         }
 
         /* About section */
@@ -561,6 +675,13 @@
 
             .hero-stats {
                 gap: 2rem;
+            }
+        }
+
+        @media (prefers-reduced-motion: reduce) {
+            * {
+                animation: none !important;
+                transition: none !important;
             }
         }
     </style>
