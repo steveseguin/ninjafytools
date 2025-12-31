@@ -115,14 +115,14 @@
         }
 
         :root {
-            --bg: #f6f1e7;
+            --bg: #f3ede2;
             --text: #1f1a14;
-            --text-muted: #6b6257;
-            --accent: #0f766e;
-            --accent-hover: #115e59;
-            --card-bg: #fffaf2;
-            --border: #e2d7c8;
-            --header-bg: #151515;
+            --text-muted: #645b50;
+            --accent: #0b7f79;
+            --accent-hover: #0a5f59;
+            --card-bg: #fff8ee;
+            --border: #d9cbb8;
+            --header-bg: #11100e;
         }
 
         @media (prefers-color-scheme: dark) {
@@ -130,7 +130,7 @@
                 --bg: #12110f;
                 --text: #f3efe8;
                 --text-muted: #b2a89a;
-                --accent: #2dd4bf;
+                --accent: #2ed4c6;
                 --accent-hover: #5eead4;
                 --card-bg: #1a1714;
                 --border: #2c2620;
@@ -142,6 +142,13 @@
                     radial-gradient(circle at 85% 5%, rgba(251, 191, 36, 0.12) 0%, transparent 40%),
                     repeating-linear-gradient(135deg, rgba(255, 255, 255, 0.04) 0 2px, transparent 2px 6px),
                     linear-gradient(180deg, rgba(18, 17, 15, 0.9), rgba(18, 17, 15, 0.6));
+            }
+
+            .product-icon,
+            .featured-icon {
+                background: rgba(255, 255, 255, 0.08);
+                border-color: rgba(255, 255, 255, 0.12);
+                box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.15), 0 10px 16px rgba(0, 0, 0, 0.25);
             }
         }
 
@@ -160,6 +167,8 @@
         a {
             color: var(--accent);
             text-decoration: none;
+            text-decoration-thickness: 1.5px;
+            text-underline-offset: 3px;
         }
 
         a:hover {
@@ -202,7 +211,7 @@
         }
 
         nav a {
-            color: #ccc;
+            color: #bdb4a7;
             font-size: 0.95rem;
         }
 
@@ -226,8 +235,8 @@
         .hero {
             background: var(--header-bg);
             background-image:
-                radial-gradient(circle at 20% 50%, rgba(45, 212, 191, 0.18) 0%, transparent 50%),
-                radial-gradient(circle at 75% 35%, rgba(245, 158, 11, 0.16) 0%, transparent 45%),
+                radial-gradient(circle at 20% 50%, rgba(46, 212, 198, 0.2) 0%, transparent 50%),
+                radial-gradient(circle at 75% 35%, rgba(245, 158, 11, 0.18) 0%, transparent 45%),
                 linear-gradient(130deg, rgba(255, 255, 255, 0.05), rgba(0, 0, 0, 0));
             color: #fff;
             padding: 5rem 2rem 6rem;
@@ -253,7 +262,7 @@
 
         .hero p {
             font-size: 1.2rem;
-            color: #aaa;
+            color: #d0c7ba;
             max-width: 620px;
             margin: 0 auto 1.5rem;
             animation: rise 0.8s ease both;
@@ -312,7 +321,7 @@
             bottom: -6px;
             width: 60%;
             height: 6px;
-            background: linear-gradient(90deg, rgba(245, 158, 11, 0.5), rgba(45, 212, 191, 0.2));
+            background: linear-gradient(90deg, rgba(245, 158, 11, 0.5), rgba(11, 127, 121, 0.25));
             border-radius: 999px;
         }
 
@@ -399,7 +408,8 @@
         }
 
         .btn-secondary:hover {
-            background: var(--border);
+            background: rgba(11, 127, 121, 0.08);
+            border-color: rgba(11, 127, 121, 0.35);
             text-decoration: none;
         }
 
@@ -443,12 +453,16 @@
             align-items: center;
             justify-content: center;
             position: relative;
+            background: rgba(255, 255, 255, 0.7);
+            border: 1px solid rgba(0, 0, 0, 0.05);
             box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.35), 0 10px 16px rgba(0, 0, 0, 0.18);
         }
 
-        .product-icon svg {
-            width: 24px;
-            height: 24px;
+        .product-icon img {
+            width: 70%;
+            height: 70%;
+            object-fit: contain;
+            filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.18));
         }
 
         .product-icon::after {
@@ -511,12 +525,16 @@
             justify-content: center;
             margin-bottom: 1rem;
             position: relative;
+            background: rgba(255, 255, 255, 0.7);
+            border: 1px solid rgba(0, 0, 0, 0.05);
             box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.25), 0 12px 20px rgba(0, 0, 0, 0.2);
         }
 
-        .featured-icon svg {
-            width: 32px;
-            height: 32px;
+        .featured-icon img {
+            width: 70%;
+            height: 70%;
+            object-fit: contain;
+            filter: drop-shadow(0 2px 5px rgba(0, 0, 0, 0.2));
         }
 
         .featured-icon::after {
@@ -729,11 +747,8 @@
             <h2>Featured Projects</h2>
             <div class="featured-grid">
                 <div class="featured-card">
-                    <div class="featured-icon" style="background: linear-gradient(135deg, #3b82f6, #1d4ed8);">
-                        <svg viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                            <polygon points="23 7 16 12 23 17 23 7"/>
-                            <rect x="1" y="5" width="15" height="14" rx="2" ry="2"/>
-                        </svg>
+                    <div class="featured-icon">
+                        <img src="/media/site-icons/upscaled/vdo-ninja.png" alt="VDO.Ninja logo">
                     </div>
                     <h3>VDO.Ninja</h3>
                     <p class="tagline">Bring remote video into OBS via WebRTC</p>
@@ -745,10 +760,8 @@
                     </div>
                 </div>
                 <div class="featured-card">
-                    <div class="featured-icon" style="background: linear-gradient(135deg, #8b5cf6, #6d28d9);">
-                        <svg viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                            <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/>
-                        </svg>
+                    <div class="featured-icon">
+                        <img src="/media/site-icons/upscaled/socialstream.png" alt="SocialStream.Ninja logo">
                     </div>
                     <h3>SocialStream.Ninja</h3>
                     <p class="tagline">Consolidate live chat from 100+ platforms</p>
@@ -765,81 +778,56 @@
             <h2>Hobby Projects</h2>
             <div class="product-grid">
                 <div class="product-card">
-                    <div class="product-icon" style="background: linear-gradient(135deg, #10b981, #059669);">
-                        <svg viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                            <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/>
-                            <path d="M8 10h8M8 14h4"/>
-                        </svg>
+                    <div class="product-icon">
+                        <img src="/media/site-icons/upscaled/caption.png" alt="Caption.Ninja logo">
                     </div>
                     <h3>Caption.Ninja</h3>
                     <p>Real-time speech-to-text captions for live streams. Browser-based, supports multiple languages and translation. Perfect for accessibility.</p>
                     <a href="https://caption.ninja">caption.ninja &rarr;</a>
                 </div>
                 <div class="product-card">
-                    <div class="product-icon" style="background: linear-gradient(135deg, #6366f1, #4f46e5);">
-                        <svg viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                            <rect x="2" y="3" width="20" height="14" rx="2" ry="2"/>
-                            <path d="M8 21h8M12 17v4"/>
-                        </svg>
+                    <div class="product-icon">
+                        <img src="/media/site-icons/upscaled/electron-capture.png" alt="Electron Capture logo">
                     </div>
                     <h3>Electron Capture</h3>
                     <p>Desktop app for capturing browser windows into OBS. Frameless, low-latency, with global hotkeys. More reliable than OBS browser sources.</p>
                     <a href="https://electroncapture.app">electroncapture.app &rarr;</a>
                 </div>
                 <div class="product-card">
-                    <div class="product-icon" style="background: linear-gradient(135deg, #ef4444, #dc2626);">
-                        <svg viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                            <rect x="4" y="4" width="16" height="16" rx="2"/>
-                            <circle cx="9" cy="9" r="1.5" fill="#fff"/>
-                            <circle cx="15" cy="9" r="1.5" fill="#fff"/>
-                            <path d="M8 14s1.5 2 4 2 4-2 4-2"/>
-                        </svg>
+                    <div class="product-icon">
+                        <img src="/media/site-icons/upscaled/raspberry.png" alt="Raspberry.Ninja logo">
                     </div>
                     <h3>Raspberry.Ninja</h3>
                     <p>Turn a Raspberry Pi or SBC into a headless streaming device. Perfect for remote cameras, IoT projects, and edge AI applications.</p>
                     <a href="https://raspberry.ninja">raspberry.ninja &rarr;</a>
                 </div>
                 <div class="product-card">
-                    <div class="product-icon" style="background: linear-gradient(135deg, #8b5cf6, #7c3aed);">
-                        <svg viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                            <path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"/>
-                            <path d="M13.73 21a2 2 0 0 1-3.46 0"/>
-                            <circle cx="18" cy="5" r="3" fill="#fff" stroke="none"/>
-                        </svg>
+                    <div class="product-icon">
+                        <img src="/media/site-icons/upscaled/versus.png" alt="Versus.Cam logo">
                     </div>
                     <h3>Versus.Cam</h3>
                     <p>Esports broadcasting control board. Monitor stream quality, adjust settings, and manage multiple feeds in real-time.</p>
                     <a href="https://versus.cam">versus.cam &rarr;</a>
                 </div>
                 <div class="product-card">
-                    <div class="product-icon" style="background: linear-gradient(135deg, #0ea5e9, #0284c7);">
-                        <svg viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                            <path d="M12 1a3 3 0 0 0-3 3v8a3 3 0 0 0 6 0V4a3 3 0 0 0-3-3z"/>
-                            <path d="M19 10v2a7 7 0 0 1-14 0v-2M12 19v4M8 23h8"/>
-                        </svg>
+                    <div class="product-icon">
+                        <img src="/media/site-icons/upscaled/comms.png" alt="Comms.cam logo">
                     </div>
                     <h3>Comms.cam</h3>
                     <p>Web-based intercom for production teams. Manage multiple groups, control access, and coordinate with flexible listening options.</p>
                     <a href="https://comms.cam">comms.cam &rarr;</a>
                 </div>
                 <div class="product-card">
-                    <div class="product-icon" style="background: linear-gradient(135deg, #64748b, #475569);">
-                        <svg viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                            <rect x="3" y="11" width="18" height="11" rx="2" ry="2"/>
-                            <path d="M7 11V7a5 5 0 0 1 10 0v4"/>
-                        </svg>
+                    <div class="product-icon">
+                        <img src="/media/site-icons/upscaled/invite.png" alt="Invite.cam logo">
                     </div>
                     <h3>Invite.cam</h3>
                     <p>Guest management with URL obfuscation and social sign-on. Server-based security for professional streaming sessions.</p>
                     <a href="https://invite.cam">invite.cam &rarr;</a>
                 </div>
                 <div class="product-card">
-                    <div class="product-icon" style="background: linear-gradient(135deg, #f59e0b, #d97706);">
-                        <svg viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                            <circle cx="12" cy="12" r="10"/>
-                            <circle cx="12" cy="12" r="4"/>
-                            <path d="M12 2v4M12 18v4M2 12h4M18 12h4"/>
-                        </svg>
+                    <div class="product-icon">
+                        <img src="/media/site-icons/upscaled/meshcast.png" alt="Meshcast.io logo">
                     </div>
                     <h3>Meshcast.io</h3>
                     <p>Free live broadcasting to small audiences; tooling designed for creators. Supports VDO.Ninja, RTMP, WHIP, and WHEP.</p>
@@ -853,34 +841,24 @@
             <p style="color: var(--text-muted); margin-bottom: 1.5rem;">Products offered by Ninjafy Tools, a registered business of Skindeep.AI Inc.</p>
             <div class="product-grid">
                 <div class="product-card">
-                    <div class="product-icon" style="background: linear-gradient(135deg, #ec4899, #db2777);">
-                        <svg viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                            <path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/>
-                        </svg>
+                    <div class="product-icon">
+                        <img src="/media/site-icons/upscaled/ninjabacker.png" alt="NinjaBacker logo">
                     </div>
                     <h3>NinjaBacker</h3>
                     <p>Zero-fee tipping platform for creators. Direct Stripe integration, no platform lock-in. OBS overlays and webhook support included.</p>
                     <a href="https://ninjabacker.com">ninjabacker.com &rarr;</a>
                 </div>
                 <div class="product-card">
-                    <div class="product-icon" style="background: linear-gradient(135deg, #14b8a6, #0d9488);">
-                        <svg viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                            <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/>
-                            <circle cx="9" cy="7" r="4"/>
-                            <path d="M23 21v-2a4 4 0 0 0-3-3.87M16 3.13a4 4 0 0 1 0 7.75"/>
-                        </svg>
+                    <div class="product-icon">
+                        <img src="/media/site-icons/upscaled/ninjachatter.png" alt="NinjaChatter logo">
                     </div>
                     <h3>NinjaChatter <span class="badge-soon">Coming Soon</span></h3>
                     <p>Real-time chat service with WebSocket support. Multi-tenant rooms, Discord/Patreon OAuth, moderation tools, and embeddable chat widgets.</p>
                     <a href="https://ninjachatter.com">ninjachatter.com &rarr;</a>
                 </div>
                 <div class="product-card">
-                    <div class="product-icon" style="background: linear-gradient(135deg, #f59e0b, #d97706);">
-                        <svg viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                            <circle cx="12" cy="12" r="10"/>
-                            <circle cx="12" cy="12" r="4"/>
-                            <path d="M12 2v4M12 18v4M2 12h4M18 12h4"/>
-                        </svg>
+                    <div class="product-icon">
+                        <img src="/media/site-icons/upscaled/meshcast2.png" alt="Meshcast 2.0 logo">
                     </div>
                     <h3>Meshcast 2.0 <span class="badge-soon">Coming Soon</span></h3>
                     <p>A premium live streaming gateway designed as tooling for professinal content creators and for small-scale broadcasting. RTMP, SRT, WHIP/WHEP, HLS, VOD, and advanced transcoding features.</p>

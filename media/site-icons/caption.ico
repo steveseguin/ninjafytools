@@ -1,0 +1,935 @@
+<html>
+<head>
+	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" />
+
+	<meta content="text/html;charset=utf-8" http-equiv="Content-Type" />
+	<meta content="utf-8" http-equiv="encoding" />
+	<meta name="copyright" content="&copy; 2020 Steve Seguin" />
+	<link rel="shortcut icon" href="data:image/x-icon;," type="image/x-icon" />
+	<!-- Primary Meta Tags -->
+	<title>CAPTION.Ninja</title>
+	<meta name="title" content="CAPTION.Ninja" />
+	<meta name="description" content="This is a free-to-use captioning tool for OBS. Speech-to-text is done using Machine Learning" />
+	<meta name="author" content="Steve Seguin" />
+	
+	<style>
+		@font-face {
+		  font-family: 'Cousine';
+		  src: url('fonts/Cousine-Bold.ttf') format('truetype');
+		}
+	
+		:root {
+		  --primary-color: #2498Eb;
+		  --secondary-color: #2c3e50;
+		  --background-color: #0000;
+		  --text-color: #333;
+		  --border-radius: 4px;
+		  --cc-background: #000000;
+		  --cc-text-color: #ffffff;
+		  --cc-font-size: 24px;
+		  --cc-line-height: 1.2;
+		}
+
+
+		button {
+			max-width: 600px;
+		}
+		body {
+			margin:0;
+			padding:0 10px;
+			height:100%;
+			border: 0;
+			display: flex;
+			flex-direction: column-reverse;
+			position:absolute;
+			bottom:0;
+			overflow:hidden;
+			max-width: calc(100vw - 20px);
+		}
+		.hidden {
+			display:none!important;
+		}
+
+		.output {
+			margin:0;
+			background-color: #0000;
+			color: white;
+			font-family: Cousine, monospace;
+			font-size: 3.2em;
+			line-height: 1.1em;
+			letter-spacing: 0.0em;
+			
+			padding: 0em;
+			text-shadow: 0.05em 0.05em 0px rgba(0,0,0,1);
+		}
+		
+		.output span { 
+			background-color: black; 
+			padding: 8px 8px 0px 8px;
+			margin:0;
+			max-width: 100%;
+		}
+		
+		a {
+			color:white;
+			font-size:1.2em;
+			text-transform: none;
+		}
+		
+		.github {
+			background-image: url("data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABQAAAAUCAYAAACNiR0NAAAAAXNSR0IArs4c6QAAAd5JREFUOE+d1MurjlEUBvDfIZQZShEGmMhQiZGZlAlyK4eEAZHcyiVRyq1cUq5FwsD1MJGJiT/AzEzRcR8xMnGOW89pv9q9fScfe/J977o8e61nP2v16HzGYBWWYA4mlbBPeI5HuI9v7fSeDnircRqTh7msMX/ALtyr42rAEbiAzX8BaruTsx0/46gBL/0HWAMe0G01YNq8Xbz5PYuN2ISvCHc5oWEsruA69mJF8a0Mr6kwD/C64mw3zpSgCfjc6nE8vhRbAE+U/+8xI4DrcKNKOol9XfJ4CimgOb0BfIilxfIds/GyS8BZeIGRJf5BAN9gWjE8xcIuwZqwZ1hQPvoDOIBRxRCiN/wj4C30lpyBNmAmYNk/Aj7G4pIz2G75I6Y2Iu0CONwlZ2Ldcl+rqmjvWhdgCdmCi1Xs0KOsxc3C5WDhcw8uI9+dzugyVZFNw3/i1jTCfoVIJmo/VDiJeJ9gPX4U1CRHs4swrnXTO8xsZjlAd9GP+WU1zcPxckGde7WMZbvy5eirl8N5bMUxHMSvYdo9igMt3znsiK29vuLI1ojYU+2dwmWdnwv3V4YskozfUAGdFmzaz4KdgiM43KomNGTW32JnGd0/IZ0A48wrhpPMdFZ+feZievjqpILf7lRg3csIRqAAAAAASUVORK5CYII=");
+			background-color: #FFF !important;
+			width: 4px;
+			height: 12px;
+			background-repeat: no-repeat;
+			display: inline-block;
+			top: 2px;
+			position: relative;
+			left: 2px;
+			filter: invert(100%);
+			-webkit-filter: invert(100%);
+		}
+		.small-text-container {
+			background-color: black;
+			padding: 10px;
+			margin-top: 10px;
+		}
+		.toggle-button {
+		  background-color: var(--primary-color);
+		  color: white;
+		  border: none;
+		  padding: 10px 20px;
+		  border-radius: var(--border-radius);
+		  cursor: pointer;
+		  font-weight: bold;
+		  transition: background-color 0.3s ease;
+		  margin: 10px 0;
+		  position: absolute;
+		  top:0;
+		  right:0;
+		}
+
+		.toggle-button:hover {
+		  background-color: var(--secondary-color);
+		}
+
+		.toggle-button.paused {
+		  background-color: #dc3545;
+		}
+		
+		.control-buttons {
+		  position: fixed;
+		  top: 10px;
+		  left: 10px;
+		  right: 10px;
+		  display: flex;
+		  justify-content: flex-start;
+		  gap: 10px;
+		}
+
+		.control-button {
+		  background-color: var(--primary-color);
+		  color: white;
+		  border: none;
+		  padding: 10px 20px;
+		  border-radius: var(--border-radius);
+		  cursor: pointer;
+		  font-weight: bold;
+		  transition: background-color 0.3s ease;
+		}
+
+		.control-button:hover {
+		  background-color: var(--secondary-color);
+		}
+
+		.control-button.paused {
+		  background-color: #dc3545;
+		}
+		
+		.output {
+		  direction: auto;
+		  unicode-bidi: bidi-override;
+		}
+
+		.output span { 
+		  background-color: black; 
+		  padding: 8px 8px 0px 8px;
+		  margin: 0;
+		  display: inline-block;
+		  direction: inherit;
+		  text-align: start;
+		}
+		
+		.error-banner {
+		  position: fixed;
+		  top: 0;
+		  left: 0;
+		  right: 0;
+		  background-color: #dc3545;
+		  color: white;
+		  padding: 10px;
+		  text-align: center;
+		  z-index: 10000;
+		  font-size: 16px;
+		  display: none;
+		}
+
+		.error-banner button {
+		  background-color: white;
+		  color: #dc3545;
+		  border: none;
+		  padding: 5px 10px;
+		  margin-left: 10px;
+		  border-radius: 4px;
+		  cursor: pointer;
+		}
+		
+		@media (max-width: 768px) {
+		  .small-text-container {
+			padding: 5px;
+			margin-top: 5px;
+		  }
+		  
+		  .output {
+			font-size: 2.2em;
+			line-height: 1em;
+			text-shadow: 0.03em 0.03em 0px rgba(0,0,0,1);
+		  }
+		  
+		  .output span {
+			padding: 5px 5px 0px 5px;
+		  }
+		  
+		  body {
+			padding: 0 5px;
+			max-width: calc(100vw - 10px);
+		  }
+		  
+		  
+		  .control-button {
+			padding: 8px 12px;
+			font-size: 14px;
+		  }
+		  
+		  ol, ul {
+			padding-left: 20px;
+		  }
+		  
+		  .small-text-container font {
+			font-size: 40% !important;
+		  }
+		}
+
+		/* For very small screens */
+		@media (max-width: 480px) {
+		  .output {
+			font-size: 1.6em;
+		  }
+		  
+		  .small-text-container font {
+			font-size: 50% !important;
+		  }
+		}
+	</style>
+</head>
+<body>
+	<div id="errorBanner" class="error-banner">
+	  <span id="errorMessage"></span>
+	  <button id="dismissError">Dismiss</button>
+	</div>
+	<div id="interm" class="output">
+	<font style='font-size:60%;line-height: 1.4em;'><span>Welcome to CAPTION.Ninja - A Free Captioning Tool</span></font>
+	
+	<div class="small-text-container">
+		<font style='font-size:30%;line-height: 1.4em;'>
+		<span>
+		<br />
+		<strong>📖 Quick Start:</strong>
+		<ol>
+			<li>Accept the microphone permissions when prompted.</li>
+			<li>Start speaking - your words will appear as captions.</li>
+			<li>For live streaming, add this link to OBS as a browser source overlay: 👉 <a id="shareLink" href="overlay.html" target='_blank'>*ERROR GENERATING LINK*</a></li>
+		</ol>
+
+		<strong>💡 Tips:</strong>
+		<ul>
+			<li>Use Google Chrome or Microsoft Edge for best results. Some users Chrome has a truncation issue though, so maybe just use Edge.</li>
+			<li>To save the transcription: Select all (CTRL+A), copy (CTRL+C), and paste into a text editor (CTRL+V).</li>
+		</ul>
+
+		<strong>🌐 Translation Options:</strong>
+		<ul>
+			<li><a href='./translation-guide.html'>📖 Complete Translation Guide</a> - All translation methods explained</li>
+			<li><a href='./translate'>Free Translation</a> - 17 languages, no API key required</li>
+			<li><a href='./translate_premium'>Premium Translation</a> - 100+ languages with Google Cloud API</li>
+			<li>Quick overlay translation: Add <code>&translate=es</code> (or other <a href="https://cloud.google.com/translate/docs/languages" target="_blank">language code</a>) to any overlay URL</li>
+			<li>Supported free languages: bg, cs, nl, en, et, de, fr, is, it, nb, nn, fa, pl, pt, ru, es, uk</li>
+		</ul>
+
+		<strong>🔬🛠️ Advanced Features:</strong>
+		<ul>
+			<li>Change input language: Add <code>&lang=fr-FR</code> to the URL (<a href="https://cloud.google.com/speech-to-text/docs/languages" target="_blank">speech recognition codes</a>)</li>
+			<li>Text to Speech playback is supported. See the <a href="https://github.com/steveseguin/captionninja?tab=readme-ov-file#tts-integration" target="_blank">TTS guide in the GitHub README</a> and visit <a href="https://tts.rocks" target="_blank">tts.rocks</a> for engines and usage.</li>
+			<li>Use a <a href='https://www.vb-audio.com/Cable/'>Virtual Audio Cable</a> to caption from other audio sources</li>
+		</ul>
+
+		<strong>🆘 Need Help?</strong>
+		<ul>
+			<li>Check out more options and details on <a href='https://github.com/steveseguin/captionninja'>GitHub <span class="github"></span></a></li>
+			<li>Ask for help on <a href='https://discord.vdo.ninja'>our Discord server<span class="discord"></span></a> - @steve for help there</li>
+		</ul>
+		</span>
+		</font>
+	</div>
+	<br />
+	</div>
+	
+	<div id="output" class="output"></div>
+	<button id="toggleTranscription" class="hidden control-button">Pause Transcription</button>
+
+	<script src="security-utils.js"></script>
+	<script src="tts-integration.js"></script>
+	<script>
+	
+	function detectTextDirection(text) {
+	  const rtlChars = /[\u0591-\u07FF\u200F\u202B\u202E\uFB1D-\uFDFD\uFE70-\uFEFC]/;
+	  return rtlChars.test(text) ? 'rtl' : 'ltr';
+	}
+
+	function download(filename, text) {
+	  var element = document.createElement('a');
+	  element.setAttribute('href', 'data:text/plain;charset=utf-8,' + encodeURIComponent(text));
+	  element.setAttribute('download', filename);
+	  element.style.display = 'none';
+	  document.body.appendChild(element);
+	  element.click();
+	  document.body.removeChild(element);
+	}
+	function getOldStorage() {
+		var values = [],
+			keys = Object.keys(localStorage),
+			i = keys.length;
+		while ( i-- ) {
+			values.push( localStorage.getItem(keys[i]) );
+		}
+		return values;
+	}
+	function removeStorage(cname){
+		localStorage.removeItem(cname);
+	}
+	function setStorage(cname, cvalue, exdays=999){
+		var now = new Date();
+		var item = {
+			value: cvalue,
+			expiry: now.getTime() + (exdays * 24 * 60 * 60 * 1000),
+		};
+		try{
+			localStorage.setItem(cname, JSON.stringify(item));
+		}catch(e){errorlog(e);}
+	}
+	function getStorage(cname) {
+		try {
+			var itemStr = localStorage.getItem(cname);
+		} catch(e){
+			errorlog(e);
+			return;
+		}
+		if (!itemStr) {
+			return "";
+		}
+		var item = JSON.parse(itemStr);
+		var now = new Date();
+		if (now.getTime() > item.expiry) {
+			localStorage.removeItem(cname);
+			return "";
+		}
+		return item.value;
+	}
+	let isPaused = false;
+	const toggleButton = document.getElementById('toggleTranscription');
+
+	toggleButton.addEventListener('click', () => {
+	  isPaused = !isPaused;
+	  
+	  if (isPaused) {
+		recognition.stop();
+		toggleButton.textContent = 'Resume Transcription';
+		toggleButton.classList.add('paused');
+	  } else {
+		recognition.start();
+		toggleButton.textContent = 'Pause Transcription';
+		toggleButton.classList.remove('paused');
+	  }
+	});
+	function updateURL(param, force=false) {
+		var para = param.split('=');
+		if (!(urlParams.has(para[0].toLowerCase()))){
+			if (history.pushState){
+				var arr = window.location.href.split('?');
+				var newurl;
+				if (arr.length > 1 && arr[1] !== '') {
+					newurl = window.location.href + '&' +param;
+				} else {
+					newurl = window.location.href + '?' +param;
+				}
+				window.history.pushState({path:newurl},'',newurl);
+			}
+		} else if (force){
+			if (history.pushState){
+				var href = new URL(window.location.href);
+				if (para.length==1){
+					href.searchParams.set(para[0].toLowerCase(), "");
+				} else {
+					href.searchParams.set(para[0].toLowerCase(), para[1]);
+				}
+				log(href.toString());
+				window.history.pushState({path:href.toString()},'',href.toString());
+			}
+		}
+	}
+	(function (w) {
+		w.URLSearchParams = w.URLSearchParams || function (searchString) {
+			var self = this;
+			self.searchString = searchString;
+			self.get = function (name) {
+				var results = new RegExp('[\?&]' + name + '=([^&#]*)').exec(self.searchString);
+				if (results == null) {
+					return null;
+				}
+				else {
+					return decodeURI(results[1]) || 0;
+				}
+			};
+		};
+	})(window);
+	var urlParams = new URLSearchParams(window.location.search);
+	
+	function isEdge() {
+	  return navigator.userAgent.indexOf("Edg/") !== -1;
+	}
+
+	function sanitize(string) {
+		var temp = document.createElement('div');
+		temp.textContent = string;
+		let text = temp.textContent
+		.substring(0, Math.min(temp.textContent.length, 500))
+		.trim();
+
+		//if (isEdge()) {
+		const isRTL = /[\u0591-\u07FF\u200F\u202B\u202E\uFB1D-\uFDFD\uFE70-\uFEFC]/.test(text);
+		if (isRTL) {
+			text = text.replaceAll(/[.,!?،؟؛]/g," ");
+		}
+		//}
+
+		return text;
+	}
+	
+	var generateRandomString = function (LLL = 16) {
+		var text = "";
+		var words = ["the", "of", "to", "and", "a", "in", "is", "it", "you", "that", "he", "was", "for", "on", "are", "with", "as", "I", "his", "they", "be", "at", "one", "have", "this", "from", "or", "had", "by", "word", "but", "what", "some", "we", "can", "out", "other", "were", "all", "there", "when", "up", "use", "your", "how", "said", "an", "each", "she", "which", "do", "their", "time", "if", "will", "way", "about", "many", "then", "them", "write", "would", "like", "so", "these", "her", "long", "make", "thing", "see", "him", "two", "has", "look", "more", "day", "could", "go", "come", "did", "number", "sound", "no", "most", "people", "my", "over", "know", "water", "than", "call", "first", "who", "may", "down", "side", "been", "now", "find", "any", "new", "work", "part", "take", "get", "place", "made", "live", "where", "after", "back", "little", "only", "round", "man", "year", "came", "show", "every", "good", "me", "give", "our", "under", "name", "very", "through", "just", "form", "sentence", "great", "think", "say", "help", "low", "line", "differ", "turn", "cause", "much", "mean", "before", "move", "right", "boy", "old", "too", "same", "tell", "does", "set", "three", "want", "air", "well", "also", "play", "small", "end", "put", "home", "read", "hand", "port", "large", "spell", "add", "even", "land", "here", "must", "big", "high", "such", "follow", "act", "why", "ask", "men", "change", "went", "light", "kind", "off", "need", "house", "picture", "try", "us", "again", "animal", "point", "mother", "world", "near", "build", "self", "earth", "father", "head", "stand", "own", "page", "should", "country", "found", "answer", "school", "grow", "study", "still", "learn", "plant", "cover", "food", "sun", "four", "between", "state", "keep", "eye", "never", "last", "let", "thought", "city", "tree", "cross", "farm", "hard", "start", "might", "story", "saw", "far", "sea", "draw", "left", "late", "run", "dont", "while", "press", "close", "night", "real", "life", "few", "north", "open", "seem", "together", "next", "white", "children", "begin", "got", "walk", "example", "ease", "paper", "group", "always", "music", "those", "both", "mark", "often", "letter", "until", "mile", "river", "car", "feet", "care", "second", "book", "carry", "took", "science", "eat", "room", "friend", "began", "idea", "fish", "mountain", "stop", "once", "base", "hear", "horse", "cut", "sure", "watch", "color", "face", "wood", "main", "enough", "plain", "girl", "usual", "young", "ready", "above", "ever", "red", "list", "though", "feel", "talk", "bird", "soon", "body", "dog", "family", "direct", "pose", "leave", "song", "measure", "door", "product", "black", "short", "numeral", "class", "wind", "question", "happen", "complete", "ship", "area", "half", "rock", "order", "fire", "south", "problem", "piece", "told", "knew", "pass", "since", "top", "whole", "king", "space", "heard", "best", "hour", "better", "during", "hundred", "five", "remember", "step", "early", "hold", "west", "ground", "interest", "reach", "fast", "verb", "sing", "listen", "six", "table", "travel", "less", "morning", "ten", "simple", "several", "vowel", "toward", "war", "lay", "against", "pattern", "slow", "center", "love", "person", "money", "serve", "appear", "road", "map", "rain", "rule", "govern", "pull", "cold", "notice", "voice", "unit", "power", "town", "fine", "certain", "fly", "fall", "lead", "cry", "dark", "machine", "note", "wait", "plan", "figure", "star", "box", "noun", "field", "rest", "correct", "able", "pound", "done", "beauty", "drive", "stood", "contain", "front", "teach", "week", "final", "gave", "green", "oh", "quick", "develop", "ocean", "warm", "free", "minute", "strong", "special", "mind", "behind", "clear", "tail", "produce", "fact", "street", "inch", "multiply", "nothing", "course", "stay", "wheel", "full", "force", "blue", "object", "decide", "surface", "deep", "moon", "island", "foot", "system", "busy", "test", "record", "boat", "common", "gold", "possible", "plane", "stead", "dry", "wonder", "laugh", "thousand", "ago", "ran", "check", "game", "shape", "equate", "hot", "miss", "brought", "heat", "snow", "tire", "bring", "yes", "distant", "fill", "east", "paint", "language", "among", "grand", "ball", "yet", "wave", "drop", "heart", "am", "present", "heavy", "dance", "engine", "position", "arm", "wide", "sail", "material", "size", "vary", "settle", "speak", "weight", "general", "ice", "matter", "circle", "pair", "include", "divide", "syllable", "felt", "perhaps", "pick", "sudden", "count", "square", "reason", "length", "represent", "art", "subject", "region", "energy", "hunt", "probable", "bed", "brother", "egg", "ride", "cell", "believe", "fraction", "forest", "sit", "race", "window", "store", "summer", "train", "sleep", "prove", "lone", "leg", "exercise", "wall", "catch", "mount", "wish", "sky", "board", "joy", "winter", "sat", "written", "wild", "instrument", "kept", "glass", "grass", "cow", "job", "edge", "sign", "visit", "past", "soft", "fun", "bright", "gas", "weather", "month", "million", "bear", "finish", "happy", "hope", "flower", "clothe", "strange", "gone", "jump", "baby", "eight", "village", "meet", "root", "buy", "raise", "solve", "metal", "whether", "push", "seven", "paragraph", "third", "shall", "held", "hair", "describe", "cook", "floor", "either", "result", "burn", "hill", "safe", "cat", "century", "consider", "type", "law", "bit", "coast", "copy", "phrase", "silent", "tall", "sand", "soil", "roll", "temperature", "finger", "industry", "value", "fight", "lie", "beat", "excite", "natural", "view", "sense", "ear", "else", "quite", "broke", "case", "middle", "kill", "son", "lake", "moment", "scale", "loud", "spring", "observe", "child", "straight", "consonant", "nation", "dictionary", "milk", "speed", "method", "organ", "pay", "age", "section", "dress", "cloud", "surprise", "quiet", "stone", "tiny", "climb", "cool", "design", "poor", "lot", "experiment", "bottom", "key", "iron", "single", "stick", "flat", "twenty", "skin", "smile", "crease", "hole", "trade", "melody", "trip", "office", "receive", "row", "mouth", "exact", "symbol", "die", "least", "trouble", "shout", "except", "wrote", "seed", "tone", "join", "suggest", "clean", "break", "lady", "yard", "rise", "bad", "blow", "oil", "blood", "touch", "grew", "cent", "mix", "team", "wire", "cost", "lost", "brown", "wear", "garden", "equal", "sent", "choose", "fell", "fit", "flow", "fair", "bank", "collect", "save", "control", "decimal", "gentle", "woman", "captain", "practice", "separate", "difficult", "doctor", "please", "protect", "noon", "whose", "locate", "ring", "character", "insect", "caught", "period", "indicate", "radio", "spoke", "atom", "human", "history", "effect", "electric", "expect", "crop", "modern", "element", "hit", "student", "corner", "party", "supply", "bone", "rail", "imagine", "provide", "agree", "thus", "capital", "wont", "chair", "danger", "fruit", "rich", "thick", "soldier", "process", "operate", "guess", "necessary", "sharp", "wing", "create", "neighbor", "wash", "bat", "rather", "crowd", "corn", "compare", "poem", "string", "bell", "depend", "meat", "rub", "tube", "famous", "dollar", "stream", "fear", "sight", "thin", "triangle", "planet", "hurry", "chief", "colony", "clock", "mine", "tie", "enter", "major", "fresh", "search", "send", "yellow", "gun", "allow", "print", "dead", "spot", "desert", "suit", "current", "lift", "rose", "continue", "block", "chart", "hat", "sell", "success", "company", "subtract", "event", "particular", "deal", "swim", "term", "opposite", "wife", "shoe", "shoulder", "spread", "arrange", "camp", "invent", "cotton", "born", "determine", "quart", "nine", "truck", "noise", "level", "chance", "gather", "shop", "stretch", "throw", "shine", "property", "column", "molecule", "select", "wrong", "gray", "repeat", "require", "broad", "prepare", "salt", "nose", "plural", "anger", "claim", "continent", "oxygen", "sugar", "death", "pretty", "skill", "women", "season", "solution", "magnet", "silver", "thank", "branch", "match", "suffix", "especially", "fig", "afraid", "huge", "sister", "steel", "discuss", "forward", "similar", "guide", "experience", "score", "apple", "bought", "led", "pitch", "coat", "mass", "card", "band", "rope", "slip", "win", "dream", "evening", "condition", "feed", "tool", "total", "basic", "smell", "valley", "nor", "double", "seat", "arrive", "master", "track", "parent", "shore", "division", "sheet", "substance", "favor", "connect", "post", "spend", "chord", "fat", "glad", "original", "share", "station", "dad", "bread", "charge", "proper", "bar", "offer", "segment", "slave", "duck", "instant", "market", "degree", "populate", "chick", "dear", "enemy", "reply", "drink", "occur", "support", "speech", "nature", "range", "steam", "motion", "path", "liquid", "log", "meant", "quotient", "teeth", "shell", "neck"];
+
+		for (var i = 0; i < 2; i++) {
+			try {
+				var rndint = parseInt(Math.random() * 1000);
+				text += words[rndint]; // capitalizeFirstLetter can be used to improve security
+			} catch (e) {}
+		}
+		var possible = "ABCDEFGHJKLMNPQRSTUVWXYZabcdefghijkmnpqrstuvwxyz23456789";
+		text += possible.charAt(Math.floor(Math.random() * possible.length));
+		while (text.length < LLL) {
+			text += possible.charAt(Math.floor(Math.random() * possible.length));
+		}
+		try {
+			text = text.replaceAll("AD", "vDAv"); // avoiding adblockers
+			text = text.replaceAll("Ad", "vdAv");
+			text = text.replaceAll("ad", "vdav");
+			text = text.replaceAll("aD", "vDav");
+		} catch (e) {
+			console.error(e);
+		}
+
+		return text;
+	};
+
+	// Secure alphanumeric room ID generator (>=12 chars)
+	function generateSecureRoomID(len = 16) {
+		const chars = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
+		let out = '';
+		for (let i = 0; i < len; i++) {
+			out += chars.charAt(Math.floor(Math.random() * chars.length));
+		}
+		return out;
+	}
+	
+	function generateStreamID(){
+		var text = "";
+		var possible = "ABCDEFGHJKLMNPQRSTUVWXYZabcdefghijkmnpqrstuvwxyz23456789";
+		for (var i = 0; i < 9; i++){
+			text += possible.charAt(Math.floor(Math.random() * possible.length));
+		}
+		return text;
+	};
+	var roomID = "test";
+	let storedRoom = "";
+	try { storedRoom = localStorage.getItem('cn_room_id') || ""; } catch (e) {}
+	if (urlParams.has("room")){
+		roomID = urlParams.get("room");
+	} else if (urlParams.has("ROOM")){
+		roomID = urlParams.get("ROOM");
+	} else if (storedRoom && /^[A-Za-z0-9]{12,}$/.test(storedRoom)) {
+		roomID = storedRoom;
+		updateURL("room="+roomID);
+	} else {
+		roomID = generateSecureRoomID(16);
+		updateURL("room="+roomID);
+	}
+	try { localStorage.setItem('cn_room_id', roomID); } catch (e) {}
+	
+	// Check for insecure stream ID and show warning
+	if (isInsecureStreamId(roomID)) {
+		injectSecurityStyles();
+		showSecurityWarning(
+			'Warning: You are using an insecure room ID that could be easily guessed. Consider using a more secure ID for privacy.',
+			0 // No auto-dismiss, user must close manually
+		);
+	}
+	
+	var label = false;
+	if (urlParams.has("label")){
+		label = urlParams.get("label");
+	}
+	var myLang = "en-US";
+	if (urlParams.has("lang")){
+		myLang = urlParams.get("lang");
+	} else {
+		updateURL("lang="+myLang);
+	}
+	console.log("Language: "+myLang);
+var srtFile = "";
+var timestamp_start = null
+var timestamp_stop = null
+var timestamp_intern  = null;
+var logcounter=0;
+// Track previous cue's end time in ms (relative to session start)
+var lastStopMs = 0;
+// Maintain structured cues so we can post-trim to avoid overlaps
+var srtCues = []; // {startMs, endMs, text}
+// minimum duration for a cue (override with &minCueMs=###)
+var MIN_CUE_MS = (function() {
+  var val = urlParams && urlParams.get && urlParams.get('minCueMs');
+  var n = parseInt(val, 10);
+  return (Number.isFinite(n) && n >= 0) ? n : 500;
+})();
+
+function formatSrtTime(ms) {
+  var t = Math.max(0, Math.floor(ms));
+  var hh = Math.floor(t / 3600000); t -= hh * 3600000;
+  var mm = Math.floor(t / 60000);   t -= mm * 60000;
+  var ss = Math.floor(t / 1000);    t -= ss * 1000;
+  var ms3 = t;
+  function pad(n, len) { n = String(n); while (n.length < len) n = '0' + n; return n; }
+  return pad(hh,2) + ':' + pad(mm,2) + ':' + pad(ss,2) + ',' + pad(ms3,3);
+}
+
+function rebuildSrtFile() {
+  var out = "";
+  // Create a shallow copy to adjust on render, ensuring non-overlap & min durations
+  for (var i = 0; i < srtCues.length; i++) {
+    var c = srtCues[i];
+    var start = Math.max(0, c.startMs|0);
+    var end = Math.max(start, c.endMs|0);
+    var nextStart = (i+1 < srtCues.length) ? Math.max(0, srtCues[i+1].startMs|0) : null;
+
+    // Enforce minimum duration when possible
+    var desiredEnd = Math.max(end, start + MIN_CUE_MS);
+    if (nextStart !== null && desiredEnd > nextStart) {
+      end = nextStart; // don't overlap next
+    } else {
+      end = desiredEnd;
+    }
+
+    out += (i+1) + "\n";
+    out += formatSrtTime(start) + " --> " + formatSrtTime(end) + "\n";
+    out += ">> " + c.text + "\n\n";
+  }
+  srtFile = out;
+}
+	var counter=0;
+	var url = document.URL.substr(0,document.URL.lastIndexOf('/'));
+	var oldSaves = Object.keys(localStorage);
+	if (oldSaves.length){
+		for (var i =0;i<oldSaves.length;i++){
+			if (oldSaves.length - 1== i){
+				if (oldSaves[i].startsWith("transcription_"+roomID+"_")){
+					try {
+						var button = document.createElement("button");
+						button.onclick = function(){
+							var srtFile = getStorage(this.dataset.key);
+							download(this.dataset.key+".srt", srtFile);
+							localStorage.removeItem(this.dataset.key);
+						};
+						button.dataset.key = oldSaves[i];
+						button.innerHTML = "Download previous saved transcription";
+						document.body.prepend(button);
+					}catch(e){console.error(e);}
+				}
+			} else if (oldSaves[i].startsWith("transcription_"+roomID+"_")){
+				localStorage.removeItem(i);
+			}
+		}
+	}
+	document.getElementById("shareLink").href= url+"/overlay?room="+roomID;
+	document.getElementById("shareLink").innerHTML = url+"/overlay?room="+roomID;
+	navigator.clipboard.writeText(url+"/overlay?room="+roomID).then(() => {
+    }, () => {
+    });
+	var apiKey = false;
+	
+	var socket;
+	let retryCount = 0;
+	const maxRetryDelay = 30000; // Maximum delay of 30 seconds
+	const baseDelay = 1000; // Start with 1 second delay after first immediate retry
+
+	function getRetryDelay() {
+		if (retryCount === 0) {
+			return 0; // First retry is immediate
+		}
+		// Exponential backoff: baseDelay * 2^(retryCount-1)
+		const delay = Math.min(baseDelay * Math.pow(2, retryCount - 1), maxRetryDelay);
+		return delay;
+	}
+
+	function connectWebSocket() {
+		if (socket) {
+			socket.close();
+			socket = null;
+		}
+
+		socket = new WebSocket("wss://api.caption.ninja:443");
+
+		socket.onclose = function() {
+			console.log("WebSocket connection closed. Attempting to reconnect...");
+			const delay = getRetryDelay();
+			console.log(`Reconnecting in ${delay}ms (attempt ${retryCount + 1})...`);
+			setTimeout(connectWebSocket, delay);
+			retryCount++;
+		};
+
+		socket.onopen = function() {
+			console.log("WebSocket connected. Joining room...");
+			// Reset retry count on successful connection
+			retryCount = 0;
+			socket.send(JSON.stringify({"join":roomID}));
+		};
+
+		socket.onerror = function(error) {
+			console.error("WebSocket error:", error);
+			if (socket) {
+				socket.close();
+				socket = null;
+			}
+			const delay = getRetryDelay();
+			console.log(`Reconnecting in ${delay}ms (attempt ${retryCount + 1})...`);
+			setTimeout(connectWebSocket, delay);
+			retryCount++;
+		};
+	}
+
+	connectWebSocket();
+	
+	
+	function handleNetworkError() {
+	  const isOnline = navigator.onLine;
+	  const browserName = isEdge() ? 'Microsoft Edge' : 
+						 navigator.userAgent.includes('Chrome') ? 'Google Chrome' : 'your browser';
+	  const alternateBrowser = isEdge() ? 'Google Chrome' : 'Microsoft Edge';
+	  
+	  let message = '';
+	  
+	  if (!isOnline) {
+		message = 'Internet connection not available. Please check your network connection.';
+	  } else {
+		message = `Speech recognition service is currently unavailable in ${browserName}. Try using ${alternateBrowser} instead.`;
+	  }
+	  
+	  showErrorBanner(message);
+	}
+
+	function showErrorBanner(message) {
+	  const banner = document.getElementById('errorBanner');
+	  const messageEl = document.getElementById('errorMessage');
+	  messageEl.textContent = message;
+	  banner.style.display = 'block';
+	  
+	  document.getElementById('dismissError').onclick = function() {
+		banner.style.display = 'none';
+	  };
+	}
+		
+	var ends = 0;
+	var final_transcript = '';
+	var interim_transcript = "";
+	var recognition = null;
+	var idle = null;
+	setup();
+	var startd = false;
+	function setup() {
+	  if ('webkitSpeechRecognition' in window) {
+		if (recognition) {
+		  recognition.onend = null;
+		  recognition.abort();
+		}
+		recognition = new webkitSpeechRecognition();
+		if (myLang) {
+		  recognition.lang = myLang;
+		}
+		recognition.continuous = true;
+		recognition.interimResults = true;
+		
+		recognition.onstart = function() {
+		  console.log("started transcription");
+		  setTimeout(function() {
+			ends = 0;
+		  }, 2000);
+		};
+		
+		recognition.onerror = function(event) {
+		  console.log(event);
+		  if (event.error === 'network') {
+			handleNetworkError();
+		  }
+		};
+
+		
+		recognition.onend = function(e) {
+		  if (isPaused) return;
+		  console.log(e);
+		  console.log("Stopped transcription");
+		  
+		  if (startd) {
+			let currentInterim = document.getElementById("interm").innerText.trim();
+			if (currentInterim) {
+			  counter += 1;
+			  const direction = detectTextDirection(currentInterim);
+			  document.getElementById("output").innerHTML += `<span id='final_${counter}' dir='${direction}'>${currentInterim}</span><br />`;
+			  document.getElementById("interm").innerHTML = "";
+			  
+			  try {
+				if (label) {
+				  socket.send(JSON.stringify({"msg":true, "final":currentInterim, "id":counter, "label":label, "ln": myLang}));
+				} else {
+				  socket.send(JSON.stringify({"msg":true, "final":currentInterim, "id":counter, "ln": myLang}));
+				}
+			  } catch(e) {
+				console.error(e);
+			  }
+			}
+		  }
+		  
+		  if (e.type === "end") {
+			ends += 1;
+		  }
+		  if (ends > 3) {
+			alert("WARNING: Cannot enable transcription service\n\nThe service will fail completely if more than one transcription session is currently active on your computer.\n\nPlease close other Caption.Ninja tabs or other transcription services and then wait a few minutes before retrying.\n\nIt might also fail if your browser does not offer a transcription service; use the official Chrome browser instead if unsure.");
+		  }
+		  
+		  setTimeout(setup, 100);
+		};
+
+		recognition.onresult = function(event) {
+		  if(typeof(event.results) == 'undefined') return;
+		  
+		  // Auto-dismiss security warning when we get actual speech results
+		  const warningElement = document.getElementById('stream-security-warning');
+		  if (warningElement) {
+			warningElement.style.animation = 'fadeOut 0.3s ease-out';
+			setTimeout(() => warningElement.remove(), 300);
+		  }
+		  
+		  let interim_transcript = '';
+		  let new_final_transcript = '';
+		  
+		  for(let i = event.resultIndex; i < event.results.length; ++i) {
+		    const transcript = sanitize(event.results[i][0].transcript);
+		    const direction = detectTextDirection(transcript);
+		    
+		    if(event.results[i].isFinal) {
+		      new_final_transcript += ' ' + transcript;
+		      document.getElementById("output").innerHTML += `<span id='final_${counter}' dir='${direction}'>${transcript}</span><br />`;
+		      document.getElementById("interm").innerHTML = "";
+		      
+		      try {
+		        if (label) {
+		          socket.send(JSON.stringify({"msg":true, "final":transcript, "id":counter, "label":label, "ln": myLang}));
+		        } else {
+		          socket.send(JSON.stringify({"msg":true, "final":transcript, "id":counter, "ln": myLang}));
+		        }
+		        // Optional: speak final results locally if TTS is enabled
+		        if (window.CAPTION_TTS && typeof window.CAPTION_TTS.speak === 'function') {
+		          window.CAPTION_TTS.speak(transcript);
+		        }
+		      } catch(e) {
+		        console.error(e);
+		      }
+		      
+		      counter += 1;
+		    } else {
+		      interim_transcript += " " + transcript;
+		    }
+		  }
+		  
+  if (interim_transcript.trim()) {
+    // Mark the start of this segment on first interim token
+    if (timestamp_intern === null) { timestamp_intern = Date.now(); }
+    const direction = detectTextDirection(interim_transcript);
+		    document.getElementById("interm").innerHTML = `<span dir='${direction}'>${interim_transcript.trim()}</span><br />`;
+		    
+		    try {
+		      if (label) {
+		        socket.send(JSON.stringify({"msg":true, "interm":interim_transcript.trim(), "id":counter, "label":label, "ln": myLang}));
+		      } else {
+		        socket.send(JSON.stringify({"msg":true, "interm":interim_transcript.trim(), "id":counter, "ln": myLang}));
+		      }
+		      // Optional: streaming TTS for interim when explicitly requested
+		      if (window.CAPTION_TTS && window.CAPTION_TTS.stream && typeof window.CAPTION_TTS.speak === 'function') {
+		        window.CAPTION_TTS.speak(interim_transcript.trim(), true);
+		      }
+		    } catch(e) {
+		      console.error(e);
+		    }
+		  }
+		  
+		  final_transcript = new_final_transcript.trim();
+		  
+      // Initialize session start once; do not set per-cue start here
+      if (timestamp_start === null) {
+        timestamp_start = Date.now();
+      }
+		  
+		  if (final_transcript) {
+		    console.log("FINAL:", final_transcript);
+		    startd = true;
+		    try {
+      // Compute start and end times for this cue
+      // End time is now relative to session start
+      var endMs = Date.now() - timestamp_start;
+      // Start time is when the first interim of this segment arrived; if we didn't
+      // get any interim (edge case), fall back to previous cue's end
+      var startMs;
+      if (timestamp_intern === null) {
+        // Prefer last cue's end if we have trimmed it; fallback to lastStopMs
+        if (srtCues.length > 0) {
+          startMs = srtCues[srtCues.length - 1].endMs;
+        } else {
+          startMs = lastStopMs;
+        }
+      } else {
+        startMs = timestamp_intern - timestamp_start;
+      }
+
+      // Enforce minimum cue duration unless it would overlap the next cue
+      if ((endMs - startMs) < MIN_CUE_MS) {
+        endMs = startMs + MIN_CUE_MS;
+      }
+
+      // If this cue starts before/at the previous cue's end, trim the previous cue
+      // and try to keep at least MIN_CUE_MS when there is room.
+      if (srtCues.length > 0) {
+        var prev = srtCues[srtCues.length - 1];
+        var maxEndAllowed = startMs; // cannot exceed new cue's start
+        var minEndDesired = prev.startMs + MIN_CUE_MS; // prefer this if space allows
+        // First, ensure previous meets minimum if possible; then clamp to avoid overlap
+        prev.endMs = Math.min(maxEndAllowed, Math.max(prev.endMs, minEndDesired));
+        // Never allow end before start (can happen if maxEndAllowed < start+min)
+        if (prev.endMs < prev.startMs) prev.endMs = prev.startMs;
+      }
+
+      // Add this cue
+      srtCues.push({ startMs: startMs, endMs: endMs, text: final_transcript });
+      rebuildSrtFile();
+
+      // Prepare for the next segment
+      lastStopMs = endMs;
+      timestamp_intern = null;
+		      setStorage("transcription_"+roomID+"_"+timestamp_start, srtFile, 1);
+		      // Speak any aggregated final text that was appended on end
+		      if (window.CAPTION_TTS && typeof window.CAPTION_TTS.speak === 'function') {
+		        window.CAPTION_TTS.speak(final_transcript);
+		      }
+		      
+      if (srtCues.length === 1) {
+        // UI setup code remains unchanged
+        var button = document.createElement("button");
+        button.onclick = function() {
+          // Rebuild just before download to guarantee latest min/trim rules
+          try { rebuildSrtFile(); } catch (e) { console.warn(e); }
+          download("transcription_"+roomID+"_"+timestamp_start+".srt", srtFile);
+        };
+        button.innerHTML = "Download transcription";
+        button.className = "control-button";
+		
+		        var shareButton = document.createElement("button");
+		        shareButton.onclick = function() {
+		          const overlayUrl = url+"/overlay?room="+roomID;
+		          navigator.clipboard.writeText(overlayUrl).then(() => {
+		            shareButton.innerHTML = "Link Copied!";
+		            setTimeout(() => shareButton.innerHTML = "Copy Overlay Link", 2000);
+		          });
+		        };
+		        shareButton.innerHTML = "Copy Overlay Link";
+		        shareButton.className = "control-button";
+		
+		        var controlContainer = document.querySelector('.control-buttons');
+		        if (!controlContainer) {
+		          controlContainer = document.createElement("div");
+		          controlContainer.className = "control-buttons";
+		          document.body.appendChild(controlContainer);
+		        }
+		        controlContainer.appendChild(button);
+		        controlContainer.appendChild(shareButton);
+		        toggleButton.classList.remove("hidden");
+		        document.querySelector('.control-buttons').appendChild(toggleButton);
+		      }
+		    } catch(e) {
+		      console.error(e);
+		    }
+		  }
+		};
+		
+		if (!isPaused) {
+		  recognition.start();
+		}
+	  }
+	}
+
+	// Optional: open a separate TTS window powered by tts.rocks bridge
+	try {
+	  if (urlParams.has('ttspopout')) {
+	    var qs = new URLSearchParams(window.location.search);
+	    // Ensure room param is present
+	    qs.set('room', roomID);
+	    var bridgeUrl = window.location.origin + window.location.pathname.replace(/\/[^^/]*$/, '') + '/tts.rocks/caption-bridge.html?' + qs.toString();
+	    window.open(bridgeUrl, '_blank', 'noopener');
+	  }
+	} catch (e) { console.warn(e); }
+			
+	if (urlParams.has("test")){
+		setInterval(function(){
+			counter += 1;
+			socket.send(JSON.stringify({"msg":true, "final":counter, "id":counter}));
+		},500);
+	}
+	
+	window.addEventListener('online', function() {
+	  document.getElementById('errorBanner').style.display = 'none';
+	  // Only restart recognition if it's not paused
+	  if (!isPaused) {
+		setup();
+	  }
+	});
+	
+	</script>
+	
+	</body>
+</html>
