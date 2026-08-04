@@ -45,7 +45,8 @@
     <link rel="manifest" href="/site.webmanifest">
 
     <!-- Theme -->
-    <meta name="theme-color" content="#09090b">
+    <meta name="theme-color" content="#09090b" media="(prefers-color-scheme: dark)">
+    <meta name="theme-color" content="#fbfbfa" media="(prefers-color-scheme: light)">
     <meta name="msapplication-TileColor" content="#09090b">
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
@@ -109,604 +110,621 @@
 
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Instrument+Serif&family=JetBrains+Mono:wght@400;500&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Instrument+Serif&family=JetBrains+Mono:wght@400;500&family=Plus+Jakarta+Sans:wght@400;500;600&display=swap" rel="stylesheet">
 
     <style>
-        /* Reset */
+        /* ---------- Reset ---------- */
         *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
-        html { scroll-behavior: smooth; }
+        html { scroll-behavior: smooth; -webkit-text-size-adjust: 100%; }
+        img, svg { display: block; max-width: 100%; }
+        ul { list-style: none; }
 
-        /* Tokens */
+        /* ---------- Tokens ---------- */
         :root {
-            --bg: #09090b;
-            --surface: #111113;
-            --surface-alt: #18181b;
-            --text: #d4d4d8;
-            --text-strong: #fafafa;
-            --text-muted: #71717a;
-            --brand: #14b8a6;
-            --brand-hover: #2dd4bf;
-            --brand-glow: rgba(20, 184, 166, 0.12);
-            --signal: #f97316;
-            --signal-glow: rgba(249, 115, 22, 0.1);
-            --border: rgba(255, 255, 255, 0.07);
-            --border-hover: rgba(255, 255, 255, 0.14);
-            --shadow: 0 1px 3px rgba(0, 0, 0, 0.4);
-            --shadow-lg: 0 20px 40px rgba(0, 0, 0, 0.45);
-            --radius: 14px;
+            color-scheme: dark light;
+
+            /* Surfaces */
+            --bg: #0a0a0c;
+            --surface: #131316;
+            --surface-hover: #1a1a1f;
+            --band: #08080a;
+
+            /* Ink */
+            --fg: #d0d0d6;
+            --fg-strong: #fafafa;
+            --fg-muted: #8a8a93;
+
+            /* Lines */
+            --line: rgba(255, 255, 255, 0.08);
+            --line-strong: rgba(255, 255, 255, 0.16);
+
+            /* Accent */
+            --accent: #2dd4bf;
+            --accent-quiet: #14b8a6;
+            --accent-btn-bg: #2dd4bf;
+            --accent-btn-fg: #04211e;
+            --accent-wash: rgba(45, 212, 191, 0.10);
+            --accent-ring: rgba(45, 212, 191, 0.35);
+
+            /* Signal */
+            --signal: #fb923c;
+            --signal-wash: rgba(251, 146, 60, 0.10);
+            --signal-line: rgba(251, 146, 60, 0.24);
+
+            /* Effects */
+            --grid-line: rgba(255, 255, 255, 0.028);
+            --glow: rgba(45, 212, 191, 0.10);
+            --shadow: 0 1px 2px rgba(0, 0, 0, 0.4);
+            --shadow-lift: 0 12px 32px -12px rgba(0, 0, 0, 0.7);
+            --header-bg: rgba(10, 10, 12, 0.72);
+
+            /* Geometry */
+            --radius: 12px;
             --radius-sm: 8px;
+            --page: 1120px;
+            --gutter: 2rem;
+            --header-h: 64px;
+
+            /* Motion */
+            --ease: cubic-bezier(0.22, 1, 0.36, 1);
         }
 
         @media (prefers-color-scheme: light) {
             :root {
-                --bg: #f7f7f5;
+                --bg: #fbfbfa;
                 --surface: #ffffff;
-                --surface-alt: #f0f0ed;
-                --text: #3f3f46;
-                --text-strong: #18181b;
-                --text-muted: #71717a;
-                --brand: #0d9488;
-                --brand-hover: #0f766e;
-                --brand-glow: rgba(13, 148, 136, 0.08);
-                --signal: #ea580c;
-                --signal-glow: rgba(234, 88, 12, 0.06);
-                --border: rgba(0, 0, 0, 0.08);
-                --border-hover: rgba(0, 0, 0, 0.14);
-                --shadow: 0 1px 4px rgba(0, 0, 0, 0.05);
-                --shadow-lg: 0 20px 40px rgba(0, 0, 0, 0.07);
+                --surface-hover: #f6f6f4;
+                --band: #f4f4f1;
+
+                --fg: #3f3f46;
+                --fg-strong: #18181b;
+                --fg-muted: #63636b;
+
+                --line: rgba(24, 24, 27, 0.10);
+                --line-strong: rgba(24, 24, 27, 0.20);
+
+                --accent: #0f766e;
+                --accent-quiet: #0d9488;
+                --accent-btn-bg: #0f766e;
+                --accent-btn-fg: #ffffff;
+                --accent-wash: rgba(13, 148, 136, 0.08);
+                --accent-ring: rgba(13, 148, 136, 0.35);
+
+                --signal: #c2410c;
+                --signal-wash: rgba(194, 65, 12, 0.07);
+                --signal-line: rgba(194, 65, 12, 0.20);
+
+                --grid-line: rgba(24, 24, 27, 0.045);
+                --glow: rgba(13, 148, 136, 0.07);
+                --shadow: 0 1px 2px rgba(24, 24, 27, 0.05);
+                --shadow-lift: 0 14px 32px -14px rgba(24, 24, 27, 0.22);
+                --header-bg: rgba(251, 251, 250, 0.78);
             }
         }
 
-        /* Base */
-        ::selection { background: rgba(20, 184, 166, 0.25); }
-
+        /* ---------- Base ---------- */
         body {
-            font-family: "Plus Jakarta Sans", system-ui, sans-serif;
+            font-family: "Plus Jakarta Sans", system-ui, -apple-system, sans-serif;
+            font-size: 16px;
+            line-height: 1.65;
             background: var(--bg);
-            color: var(--text);
-            line-height: 1.7;
+            color: var(--fg);
             min-height: 100vh;
             -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+            text-rendering: optimizeLegibility;
         }
 
-        body::before {
-            content: "";
-            position: fixed;
-            inset: 0;
-            pointer-events: none;
-            z-index: -1;
-            background:
-                radial-gradient(ellipse 800px 600px at 75% 0%, var(--brand-glow), transparent),
-                radial-gradient(ellipse 600px 500px at 10% 100%, var(--signal-glow), transparent);
+        ::selection { background: var(--accent-ring); color: var(--fg-strong); }
+
+        p { text-wrap: pretty; }
+
+        h1, h2, h3, h4 {
+            color: var(--fg-strong);
+            text-wrap: balance;
+            letter-spacing: -0.015em;
         }
 
         a {
-            color: var(--brand);
+            color: var(--accent);
             text-decoration: none;
-            transition: color 0.2s;
+            transition: color 0.18s ease;
         }
 
-        a:hover { color: var(--brand-hover); }
+        a:hover { color: var(--accent-quiet); }
 
-        a:focus-visible,
-        button:focus-visible {
-            outline: 2px solid var(--brand);
+        :focus-visible {
+            outline: 2px solid var(--accent);
             outline-offset: 3px;
             border-radius: 4px;
         }
 
-        /* Header */
+        .mono {
+            font-family: "JetBrains Mono", ui-monospace, monospace;
+            font-size: 0.7rem;
+            font-weight: 500;
+            text-transform: uppercase;
+            letter-spacing: 0.11em;
+        }
+
+        .wrap {
+            max-width: var(--page);
+            margin-inline: auto;
+            padding-inline: var(--gutter);
+        }
+
+        /* ---------- Header ---------- */
         header {
-            background: rgba(9, 9, 11, 0.82);
-            backdrop-filter: blur(16px) saturate(1.8);
-            -webkit-backdrop-filter: blur(16px) saturate(1.8);
-            color: #e4e4e7;
-            padding: 0 2rem;
             position: sticky;
             top: 0;
             z-index: 100;
-            border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+            background: var(--header-bg);
+            backdrop-filter: blur(14px) saturate(1.6);
+            -webkit-backdrop-filter: blur(14px) saturate(1.6);
+            border-bottom: 1px solid transparent;
+            transition: border-color 0.3s ease;
         }
 
+        header.scrolled { border-bottom-color: var(--line); }
+
         .header-inner {
-            max-width: 1200px;
-            margin: 0 auto;
             display: flex;
-            justify-content: space-between;
             align-items: center;
-            height: 60px;
+            justify-content: space-between;
+            height: var(--header-h);
             position: relative;
         }
 
         .logo {
-            font-size: 1.15rem;
-            font-weight: 700;
-            font-family: "Plus Jakarta Sans", system-ui, sans-serif;
-            letter-spacing: -0.02em;
-            color: #fafafa;
-            text-decoration: none;
+            font-size: 0.95rem;
+            font-weight: 600;
+            letter-spacing: -0.01em;
+            color: var(--fg-strong);
         }
 
-        .logo:hover { color: #fff; text-decoration: none; }
+        .logo:hover { color: var(--accent); }
 
         nav {
             display: flex;
-            gap: 0.25rem;
             align-items: center;
+            gap: 0.15rem;
         }
 
         nav a {
-            color: #a1a1aa;
-            font-size: 0.82rem;
+            color: var(--fg-muted);
+            font-size: 0.85rem;
             font-weight: 500;
-            padding: 0.4rem 0.75rem;
+            padding: 0.4rem 0.7rem;
             border-radius: var(--radius-sm);
-            transition: color 0.2s, background 0.2s;
+            transition: color 0.18s ease, background-color 0.18s ease;
         }
 
         nav a:hover {
-            color: #fafafa;
-            background: rgba(255, 255, 255, 0.07);
-            text-decoration: none;
+            color: var(--fg-strong);
+            background: var(--surface-hover);
         }
 
         .mobile-menu {
             display: none;
+            align-items: center;
+            justify-content: center;
             width: 36px;
             height: 36px;
+            border: 1px solid var(--line);
             border-radius: var(--radius-sm);
-            border: 1px solid rgba(255, 255, 255, 0.12);
-            background: rgba(255, 255, 255, 0.05);
-            color: #e4e4e7;
-            font-size: 1.1rem;
+            background: var(--surface);
+            color: var(--fg-strong);
+            font: inherit;
+            font-size: 1rem;
+            line-height: 1;
             cursor: pointer;
-            transition: background 0.2s;
+            transition: background-color 0.18s ease, border-color 0.18s ease;
         }
 
-        .mobile-menu:hover { background: rgba(255, 255, 255, 0.1); }
+        .mobile-menu:hover { background: var(--surface-hover); border-color: var(--line-strong); }
 
-        /* Hero */
+        /* ---------- Hero ---------- */
         .hero {
-            background: #09090b;
-            color: #e4e4e7;
-            padding: 6rem 2rem 5rem;
-            text-align: center;
             position: relative;
             overflow: hidden;
+            padding: 6.5rem var(--gutter) 5.5rem;
+            text-align: center;
+            border-bottom: 1px solid var(--line);
         }
 
-        .hero::before {
-            content: "";
-            position: absolute;
-            inset: 0;
-            background-image:
-                linear-gradient(rgba(255, 255, 255, 0.025) 1px, transparent 1px),
-                linear-gradient(90deg, rgba(255, 255, 255, 0.025) 1px, transparent 1px);
-            background-size: 72px 72px;
-            mask-image: radial-gradient(ellipse 80% 70% at 50% 45%, black 20%, transparent 70%);
-            -webkit-mask-image: radial-gradient(ellipse 80% 70% at 50% 45%, black 20%, transparent 70%);
-        }
-
+        .hero::before,
         .hero::after {
             content: "";
             position: absolute;
-            width: 500px;
-            height: 500px;
-            border-radius: 50%;
-            background: radial-gradient(circle, rgba(20, 184, 166, 0.1), transparent 65%);
-            top: -250px;
-            right: -100px;
             pointer-events: none;
         }
 
-        .hero > * {
-            position: relative;
-            z-index: 1;
+        /* graph paper */
+        .hero::before {
+            inset: 0;
+            background-image:
+                linear-gradient(var(--grid-line) 1px, transparent 1px),
+                linear-gradient(90deg, var(--grid-line) 1px, transparent 1px);
+            background-size: 76px 76px;
+            background-position: center;
+            mask-image: radial-gradient(ellipse 70% 65% at 50% 42%, #000 10%, transparent 72%);
+            -webkit-mask-image: radial-gradient(ellipse 70% 65% at 50% 42%, #000 10%, transparent 72%);
         }
 
+        /* single soft glow */
+        .hero::after {
+            top: -320px;
+            left: 50%;
+            width: 900px;
+            height: 640px;
+            transform: translateX(-50%);
+            background: radial-gradient(ellipse at center, var(--glow), transparent 68%);
+        }
+
+        .hero > * { position: relative; z-index: 1; }
+
         .hero-kicker {
-            font-family: "JetBrains Mono", monospace;
-            font-size: 0.72rem;
-            font-weight: 500;
-            text-transform: uppercase;
-            letter-spacing: 0.14em;
-            color: #14b8a6;
-            margin-bottom: 1.5rem;
-            animation: fadeUp 0.8s ease both;
+            color: var(--accent);
+            margin-bottom: 1.75rem;
         }
 
         .hero-logo {
-            width: 72px;
-            height: 72px;
-            margin: 0 auto 1.5rem;
-            filter: drop-shadow(0 0 24px rgba(20, 184, 166, 0.12));
-            animation: fadeUp 0.8s ease both;
-            animation-delay: 0.06s;
+            width: 60px;
+            height: 60px;
+            margin: 0 auto 1.75rem;
         }
+
+        .hero-logo .plate { fill: var(--surface); stroke: var(--line-strong); }
+        .hero-logo .play { fill: var(--accent-quiet); }
+        .hero-logo .wave { stroke: var(--signal); }
 
         .hero h1 {
-            font-size: clamp(2.4rem, 5.5vw, 3.75rem);
-            font-weight: 400;
             font-family: "Instrument Serif", Georgia, serif;
-            color: #fafafa;
-            margin-bottom: 1rem;
-            letter-spacing: -0.01em;
-            line-height: 1.15;
-            animation: fadeUp 0.8s ease both;
-            animation-delay: 0.12s;
+            font-weight: 400;
+            font-size: clamp(2.75rem, 7vw, 4.25rem);
+            line-height: 1.05;
+            letter-spacing: -0.02em;
+            margin-bottom: 1.1rem;
         }
 
-        .hero p {
+        .hero-lede {
             font-size: 1.05rem;
-            color: #a1a1aa;
-            max-width: 540px;
-            margin: 0 auto 2.5rem;
-            line-height: 1.7;
-            animation: fadeUp 0.8s ease both;
-            animation-delay: 0.18s;
+            color: var(--fg-muted);
+            max-width: 34rem;
+            margin: 0 auto 3rem;
         }
 
         .hero-stats {
-            display: flex;
-            justify-content: center;
-            gap: 1px;
-            max-width: 660px;
-            margin: 0 auto;
-            background: rgba(255, 255, 255, 0.06);
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            max-width: 40rem;
+            margin-inline: auto;
+            border: 1px solid var(--line);
             border-radius: var(--radius);
+            background: var(--surface);
             overflow: hidden;
-            animation: fadeUp 0.8s ease both;
-            animation-delay: 0.28s;
         }
 
         .hero-stat {
-            flex: 1;
-            padding: 1.1rem 1.5rem;
-            background: rgba(9, 9, 11, 0.85);
+            padding: 1.15rem 1rem;
         }
+
+        .hero-stat + .hero-stat { border-left: 1px solid var(--line); }
 
         .hero-stat strong {
             display: block;
-            font-size: 1.5rem;
             font-family: "Instrument Serif", Georgia, serif;
-            color: #fafafa;
-            line-height: 1.2;
+            font-weight: 400;
+            font-size: 1.75rem;
+            line-height: 1.15;
+            color: var(--fg-strong);
         }
 
         .hero-stat span {
-            color: #71717a;
-            font-size: 0.68rem;
-            font-family: "JetBrains Mono", monospace;
+            display: block;
+            margin-top: 0.2rem;
+            color: var(--fg-muted);
+            font-family: "JetBrains Mono", ui-monospace, monospace;
+            font-size: 0.66rem;
             text-transform: uppercase;
-            letter-spacing: 0.06em;
+            letter-spacing: 0.08em;
         }
 
-        /* Main */
-        main {
-            max-width: 1200px;
-            margin: 0 auto;
-            padding: 4rem 2rem 2rem;
-        }
+        /* ---------- Sections ---------- */
+        main { padding-block: 4rem 1rem; }
 
-        section { margin-bottom: 4.5rem; }
+        section {
+            margin-bottom: 5.5rem;
+            scroll-margin-top: calc(var(--header-h) + 1.5rem);
+        }
 
         h2 {
-            font-size: clamp(1.5rem, 3vw, 2rem);
+            display: flex;
+            align-items: center;
+            gap: 1.25rem;
             font-family: "Instrument Serif", Georgia, serif;
             font-weight: 400;
-            color: var(--text-strong);
-            letter-spacing: -0.01em;
+            font-size: clamp(1.65rem, 3.2vw, 2.1rem);
+            line-height: 1.2;
+            margin-bottom: 1.75rem;
         }
 
         h2::after {
             content: "";
-            display: block;
-            width: 40px;
-            height: 2px;
-            margin-top: 0.55rem;
-            margin-bottom: 1.5rem;
-            background: var(--brand);
-            border-radius: 1px;
+            flex: 1;
+            height: 1px;
+            background: var(--line);
         }
 
         .section-note {
-            color: var(--text-muted);
-            margin-bottom: 1.5rem;
-            margin-top: -0.8rem;
-            max-width: 60ch;
-            font-size: 0.93rem;
+            color: var(--fg-muted);
+            font-size: 0.92rem;
+            max-width: 58ch;
+            margin: -1.1rem 0 1.75rem;
         }
 
-        /* Featured */
-        .featured-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(340px, 1fr));
-            gap: 1.25rem;
-        }
-
-        .featured-card {
+        /* ---------- Cards (shared) ---------- */
+        .card {
+            position: relative;
+            display: flex;
+            flex-direction: column;
             background: var(--surface);
-            border: 1px solid var(--border);
-            border-left: 3px solid var(--brand);
+            border: 1px solid var(--line);
             border-radius: var(--radius);
-            padding: 2rem;
             box-shadow: var(--shadow);
-            transition: border-color 0.3s, box-shadow 0.3s, transform 0.3s cubic-bezier(0.22, 1, 0.36, 1);
-            animation: fadeUp 0.7s ease both;
+            transition:
+                border-color 0.25s ease,
+                box-shadow 0.25s ease,
+                transform 0.25s var(--ease);
         }
 
-        .featured-card:nth-child(1) { animation-delay: 0.05s; }
-        .featured-card:nth-child(2) { animation-delay: 0.12s; }
-
-        .featured-card:hover {
-            border-color: rgba(20, 184, 166, 0.2);
-            box-shadow: var(--shadow-lg);
+        .card:hover {
+            border-color: var(--line-strong);
+            box-shadow: var(--shadow-lift);
             transform: translateY(-2px);
         }
 
-        .featured-icon,
-        .product-icon {
-            width: 48px;
-            height: 48px;
-            margin-bottom: 1rem;
-            border-radius: 12px;
+        .card-icon {
             display: flex;
             align-items: center;
             justify-content: center;
-            background: var(--brand-glow);
-            border: 1px solid rgba(20, 184, 166, 0.1);
+            width: 44px;
+            height: 44px;
+            margin-bottom: 1.1rem;
+            border: 1px solid var(--line);
+            border-radius: 10px;
+            background: var(--bg);
         }
 
-        .featured-icon {
-            width: 52px;
-            height: 52px;
-        }
-
-        .product-icon img,
-        .featured-icon img {
-            width: 68%;
-            height: 68%;
+        .card-icon img {
+            width: 62%;
+            height: 62%;
             object-fit: contain;
         }
 
+        /* ---------- Featured ---------- */
+        .featured-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(min(100%, 22rem), 1fr));
+            gap: 1.25rem;
+        }
+
+        .featured-card { padding: 1.9rem; }
+
+        .featured-card .card-icon {
+            width: 48px;
+            height: 48px;
+        }
+
         .featured-card h3 {
-            font-size: 1.25rem;
+            font-size: 1.2rem;
             font-weight: 600;
-            margin-bottom: 0.3rem;
-            color: var(--text-strong);
+            margin-bottom: 0.35rem;
         }
 
         .featured-card .tagline {
-            color: var(--text-muted);
-            font-size: 0.7rem;
-            font-family: "JetBrains Mono", monospace;
-            text-transform: uppercase;
-            letter-spacing: 0.06em;
+            color: var(--fg-muted);
             margin-bottom: 1rem;
         }
 
-        .featured-card p {
-            margin-bottom: 1.4rem;
-            line-height: 1.75;
-            font-size: 0.95rem;
+        .featured-card .blurb {
+            font-size: 0.94rem;
+            margin-bottom: 1.5rem;
         }
 
-        .featured-card .links {
+        .links {
             display: flex;
-            gap: 0.5rem;
             flex-wrap: wrap;
+            gap: 0.5rem;
+            margin-top: auto;
         }
 
-        /* Buttons */
+        /* ---------- Buttons ---------- */
         .btn {
             display: inline-flex;
             align-items: center;
             justify-content: center;
-            padding: 0.5rem 1rem;
-            border-radius: var(--radius-sm);
-            font-weight: 600;
-            font-size: 0.78rem;
-            letter-spacing: 0.02em;
+            padding: 0.5rem 0.95rem;
             border: 1px solid transparent;
-            transition: all 0.2s ease;
+            border-radius: var(--radius-sm);
+            font-size: 0.8rem;
+            font-weight: 600;
+            letter-spacing: 0.005em;
             cursor: pointer;
+            transition: background-color 0.18s ease, border-color 0.18s ease, color 0.18s ease;
         }
 
         .btn-primary {
-            background: var(--brand);
-            color: #fff;
+            background: var(--accent-btn-bg);
+            color: var(--accent-btn-fg);
         }
 
         .btn-primary:hover {
-            background: var(--brand-hover);
-            color: #fff;
-            text-decoration: none;
-            transform: translateY(-1px);
-            box-shadow: 0 4px 12px rgba(20, 184, 166, 0.25);
+            background: var(--accent-quiet);
+            color: var(--accent-btn-fg);
         }
 
         .btn-secondary {
-            background: transparent;
-            border-color: var(--border-hover);
-            color: var(--text);
+            border-color: var(--line-strong);
+            color: var(--fg);
         }
 
         .btn-secondary:hover {
-            background: var(--surface-alt);
-            border-color: var(--border-hover);
-            color: var(--text-strong);
-            text-decoration: none;
+            background: var(--surface-hover);
+            color: var(--fg-strong);
         }
 
-        /* Product Cards */
+        /* ---------- Product grid ---------- */
         .product-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+            grid-template-columns: repeat(auto-fill, minmax(min(100%, 17rem), 1fr));
             gap: 1rem;
         }
 
-        .product-card {
-            background: var(--surface);
-            border: 1px solid var(--border);
-            border-radius: var(--radius);
-            padding: 1.5rem;
-            box-shadow: var(--shadow);
-            transition: transform 0.3s cubic-bezier(0.22, 1, 0.36, 1), border-color 0.3s, box-shadow 0.3s;
-            animation: fadeUp 0.6s ease both;
-        }
-
-        .product-card:nth-child(1) { animation-delay: 0.02s; }
-        .product-card:nth-child(2) { animation-delay: 0.06s; }
-        .product-card:nth-child(3) { animation-delay: 0.10s; }
-        .product-card:nth-child(4) { animation-delay: 0.14s; }
-        .product-card:nth-child(5) { animation-delay: 0.18s; }
-        .product-card:nth-child(6) { animation-delay: 0.22s; }
-        .product-card:nth-child(7) { animation-delay: 0.26s; }
-
-        .product-card:hover {
-            transform: translateY(-3px);
-            border-color: var(--border-hover);
-            box-shadow: var(--shadow-lg);
-        }
+        .product-card { padding: 1.4rem; }
 
         .product-card h3 {
-            font-size: 1.05rem;
+            font-size: 1rem;
             font-weight: 600;
+            line-height: 1.35;
             margin-bottom: 0.4rem;
-            color: var(--text-strong);
-            line-height: 1.3;
         }
 
         .product-card p {
-            color: var(--text-muted);
-            font-size: 0.9rem;
-            margin-bottom: 1rem;
-            line-height: 1.65;
+            color: var(--fg-muted);
+            font-size: 0.885rem;
+            line-height: 1.6;
+            margin-bottom: 1.1rem;
         }
 
-        .product-card > a {
-            font-size: 0.82rem;
-            font-weight: 500;
-            font-family: "JetBrains Mono", monospace;
-            letter-spacing: 0.01em;
+        .card-link {
+            margin-top: auto;
+            align-self: flex-start;
+            font-family: "JetBrains Mono", ui-monospace, monospace;
+            font-size: 0.775rem;
+            letter-spacing: -0.01em;
         }
 
-        .product-card > a:hover {
-            text-decoration: underline;
-            text-underline-offset: 3px;
+        /* whole card is the target */
+        .card-link::after {
+            content: "";
+            position: absolute;
+            inset: 0;
+            border-radius: inherit;
         }
 
-        /* Badge */
-        .badge-soon {
+        .card-link .arrow {
             display: inline-block;
-            font-size: 0.6rem;
-            font-weight: 600;
-            padding: 0.15rem 0.5rem;
-            background: var(--signal-glow);
-            color: var(--signal);
-            border: 1px solid rgba(249, 115, 22, 0.2);
-            border-radius: 6px;
-            text-transform: uppercase;
-            letter-spacing: 0.04em;
-            vertical-align: middle;
-            margin-left: 0.5rem;
-            font-family: "JetBrains Mono", monospace;
+            transition: transform 0.25s var(--ease);
         }
 
-        /* About */
+        .card:hover .card-link .arrow { transform: translateX(3px); }
+
+        .card:has(.card-link:focus-visible) {
+            outline: 2px solid var(--accent);
+            outline-offset: 3px;
+        }
+
+        .card-link:focus-visible { outline: none; }
+
+        /* ---------- Badge ---------- */
+        .badge {
+            display: inline-block;
+            margin-left: 0.4rem;
+            padding: 0.1rem 0.45rem;
+            border: 1px solid var(--signal-line);
+            border-radius: 5px;
+            background: var(--signal-wash);
+            color: var(--signal);
+            font-family: "JetBrains Mono", ui-monospace, monospace;
+            font-size: 0.58rem;
+            font-weight: 500;
+            text-transform: uppercase;
+            letter-spacing: 0.06em;
+            vertical-align: 0.12em;
+        }
+
+        /* ---------- About ---------- */
         .about-content {
             display: grid;
-            grid-template-columns: minmax(0, 2fr) minmax(240px, 1fr);
-            gap: 1.5rem;
+            grid-template-columns: minmax(0, 1.9fr) minmax(15rem, 1fr);
+            gap: 2rem;
             align-items: start;
         }
 
         .about-text p {
-            margin-bottom: 1rem;
-            line-height: 1.8;
-            font-size: 0.95rem;
+            font-size: 0.97rem;
+            line-height: 1.75;
+            max-width: 62ch;
         }
 
+        .about-text p + p { margin-top: 1rem; }
+
         .about-links {
+            padding: 1.4rem 1.5rem;
             background: var(--surface);
-            border: 1px solid var(--border);
+            border: 1px solid var(--line);
             border-radius: var(--radius);
-            padding: 1.5rem;
             box-shadow: var(--shadow);
         }
 
         .about-links h3 {
-            font-size: 0.95rem;
-            font-weight: 600;
+            color: var(--fg-muted);
             margin-bottom: 1rem;
-            color: var(--text-strong);
         }
 
-        .about-links ul { list-style: none; }
-        .about-links li { margin-bottom: 0.6rem; }
+        .about-links li + li { margin-top: 0.55rem; }
         .about-links a { font-size: 0.9rem; }
 
-        /* Footer */
+        /* ---------- Footer ---------- */
         footer {
-            background: #08080a;
-            color: #a1a1aa;
-            padding: 3rem 2rem;
-            margin-top: 2rem;
-            border-top: 1px solid rgba(255, 255, 255, 0.05);
+            margin-top: 4rem;
+            padding-block: 3.5rem 2rem;
+            background: var(--band);
+            border-top: 1px solid var(--line);
         }
 
-        .footer-inner {
-            max-width: 1200px;
-            margin: 0 auto;
+        .footer-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+            grid-template-columns: repeat(auto-fit, minmax(11rem, 1fr));
             gap: 2rem;
         }
 
         .footer-section h4 {
-            color: #d4d4d8;
-            font-size: 0.72rem;
-            font-weight: 600;
-            margin-bottom: 0.85rem;
-            text-transform: uppercase;
-            letter-spacing: 0.1em;
-            font-family: "JetBrains Mono", monospace;
+            color: var(--fg-muted);
+            margin-bottom: 0.9rem;
         }
 
-        .footer-section ul { list-style: none; }
-        .footer-section li { margin-bottom: 0.4rem; }
+        .footer-section li + li { margin-top: 0.45rem; }
 
         .footer-section a {
-            color: #71717a;
-            font-size: 0.88rem;
-            transition: color 0.2s;
+            color: var(--fg-muted);
+            font-size: 0.875rem;
         }
 
-        .footer-section a:hover { color: #fafafa; }
+        .footer-section a:hover { color: var(--fg-strong); }
 
         .footer-bottom {
-            max-width: 1200px;
-            margin: 2rem auto 0;
-            padding-top: 1.5rem;
-            border-top: 1px solid rgba(255, 255, 255, 0.05);
             display: flex;
-            justify-content: space-between;
             flex-wrap: wrap;
-            gap: 0.8rem;
+            justify-content: space-between;
+            gap: 0.75rem;
+            margin-top: 3rem;
+            padding-top: 1.5rem;
+            border-top: 1px solid var(--line);
             font-size: 0.8rem;
-            color: #52525b;
+            color: var(--fg-muted);
         }
 
-        .footer-bottom a { color: #71717a; }
-
-        /* Responsive */
+        /* ---------- Responsive ---------- */
         @media (max-width: 900px) {
-            .featured-grid { grid-template-columns: 1fr; }
             .about-content { grid-template-columns: 1fr; }
         }
 
         @media (max-width: 760px) {
-            .mobile-menu { display: block; }
+            :root { --gutter: 1.25rem; }
+
+            .mobile-menu { display: inline-flex; }
 
             nav {
                 display: none;
@@ -714,37 +732,57 @@
                 top: calc(100% + 0.5rem);
                 left: 0;
                 right: 0;
-                background: #111113;
-                border: 1px solid rgba(255, 255, 255, 0.08);
-                border-radius: var(--radius);
-                padding: 0.6rem;
                 flex-direction: column;
-                gap: 0.15rem;
-                box-shadow: 0 16px 32px rgba(0, 0, 0, 0.5);
+                align-items: stretch;
+                gap: 0.1rem;
+                padding: 0.5rem;
+                background: var(--surface);
+                border: 1px solid var(--line);
+                border-radius: var(--radius);
+                box-shadow: var(--shadow-lift);
             }
 
             nav.open { display: flex; }
-            nav a { text-align: center; padding: 0.6rem; }
+            nav a { padding: 0.65rem 0.8rem; }
 
-            .hero { padding: 4.5rem 1.5rem 4rem; }
+            .hero { padding: 4.5rem var(--gutter) 4rem; }
+            .hero-lede { margin-bottom: 2.25rem; }
 
-            .hero-stats {
-                flex-direction: column;
-                max-width: 320px;
+            .hero-stats { grid-template-columns: 1fr; }
+            .hero-stat + .hero-stat {
+                border-left: 0;
+                border-top: 1px solid var(--line);
             }
 
-            main { padding: 2.5rem 1rem 1rem; }
-            header { padding: 0 1rem; }
-            footer { padding: 2.5rem 1rem; }
+            main { padding-block: 3.5rem 1rem; }
+            section { margin-bottom: 4rem; }
+            .featured-card { padding: 1.5rem; }
         }
 
-        /* Animation */
-        @keyframes fadeUp {
-            from { opacity: 0; transform: translateY(16px); }
-            to { opacity: 1; transform: translateY(0); }
+        /* ---------- Motion ---------- */
+        @keyframes rise {
+            from { opacity: 0; transform: translateY(14px); }
+            to { opacity: 1; transform: none; }
+        }
+
+        @media (prefers-reduced-motion: no-preference) {
+            .hero > * { animation: rise 0.7s var(--ease) both; }
+            .hero-logo { animation-delay: 0.05s; }
+            .hero h1 { animation-delay: 0.1s; }
+            .hero-lede { animation-delay: 0.15s; }
+            .hero-stats { animation-delay: 0.22s; }
+
+            @supports (animation-timeline: view()) {
+                .card, .about-text, .about-links {
+                    animation: rise linear both;
+                    animation-timeline: view();
+                    animation-range: entry 0% cover 20%;
+                }
+            }
         }
 
         @media (prefers-reduced-motion: reduce) {
+            html { scroll-behavior: auto; }
             *, *::before, *::after {
                 animation-duration: 0.01ms !important;
                 animation-iteration-count: 1 !important;
@@ -754,12 +792,12 @@
     </style>
 </head>
 <body>
-    <header>
-        <div class="header-inner">
+    <header id="site-header">
+        <div class="header-inner wrap">
             <a href="/" class="logo">Steve Seguin</a>
             <button class="mobile-menu" aria-label="Toggle menu" aria-expanded="false" aria-controls="site-nav">&#9776;</button>
             <nav id="site-nav">
-                <a href="#projects">Projects</a>
+                <a href="#featured">Projects</a>
                 <a href="#ninjafy-tools">Ninjafy Tools</a>
                 <a href="#about">About</a>
                 <a href="https://github.com/steveseguin" target="_blank" rel="noopener noreferrer">GitHub</a>
@@ -768,15 +806,15 @@
     </header>
 
     <section class="hero">
-        <p class="hero-kicker">Independent software for live production</p>
-        <svg class="hero-logo" viewBox="0 0 72 72" fill="none" xmlns="http://www.w3.org/2000/svg">
-            <rect x="1" y="1" width="70" height="70" rx="16" fill="#111113" stroke="rgba(255,255,255,0.06)"/>
-            <path d="M27 50V22l24 14-24 14z" fill="#14b8a6"/>
-            <path d="M52 36c0 6-3.5 11.5-8.5 14" stroke="#f97316" stroke-width="1.8" stroke-linecap="round" fill="none" opacity="0.7"/>
-            <path d="M57 36c0 9-5 16.5-12.5 19.5" stroke="#f97316" stroke-width="1.8" stroke-linecap="round" fill="none" opacity="0.35"/>
+        <p class="hero-kicker mono">Independent software for live production</p>
+        <svg class="hero-logo" viewBox="0 0 72 72" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+            <rect class="plate" x="1" y="1" width="70" height="70" rx="16"/>
+            <path class="play" d="M27 50V22l24 14-24 14z"/>
+            <path class="wave" d="M52 36c0 6-3.5 11.5-8.5 14" stroke-width="1.8" stroke-linecap="round" opacity="0.7"/>
+            <path class="wave" d="M57 36c0 9-5 16.5-12.5 19.5" stroke-width="1.8" stroke-linecap="round" opacity="0.35"/>
         </svg>
         <h1>Steve Seguin</h1>
-        <p>Tools for creators, broadcasters, and production teams who need reliable workflows without platform lock-in.</p>
+        <p class="hero-lede">Tools for creators, broadcasters, and production teams who need reliable workflows without platform lock-in.</p>
         <div class="hero-stats">
             <div class="hero-stat">
                 <strong>1M+</strong>
@@ -793,97 +831,97 @@
         </div>
     </section>
 
-    <main>
+    <main class="wrap">
         <section id="featured">
             <h2>Featured Projects</h2>
             <div class="featured-grid">
-                <div class="featured-card">
-                    <div class="featured-icon">
-                        <img src="/media/site-icons/upscaled/vdo-ninja.png" alt="VDO.Ninja logo">
+                <article class="card featured-card">
+                    <div class="card-icon">
+                        <img src="/media/site-icons/upscaled/vdo-ninja.png" alt="" width="48" height="48" loading="lazy">
                     </div>
                     <h3>VDO.Ninja</h3>
-                    <p class="tagline">Bring remote video into OBS via WebRTC</p>
-                    <p>Peer-to-peer video streaming directly in your browser. No downloads, no accounts, no data collection. Used by NASA, AWS, and Twitch for professional remote production. Supports up to 30 guests per room with ultra-low latency.</p>
+                    <p class="tagline mono">Remote video into OBS via WebRTC</p>
+                    <p class="blurb">Peer-to-peer video streaming directly in your browser. No downloads, no accounts, no data collection. Used by NASA, AWS, and Twitch for professional remote production. Supports up to 30 guests per room with ultra-low latency.</p>
                     <div class="links">
                         <a href="https://vdo.ninja" class="btn btn-primary">Open VDO.Ninja</a>
                         <a href="https://docs.vdo.ninja" class="btn btn-secondary">Documentation</a>
                         <a href="https://github.com/steveseguin/vdo.ninja" class="btn btn-secondary">GitHub</a>
                     </div>
-                </div>
-                <div class="featured-card">
-                    <div class="featured-icon">
-                        <img src="/media/site-icons/upscaled/socialstream.png" alt="SocialStream.Ninja logo">
+                </article>
+                <article class="card featured-card">
+                    <div class="card-icon">
+                        <img src="/media/site-icons/upscaled/socialstream.png" alt="" width="48" height="48" loading="lazy">
                     </div>
                     <h3>SocialStream.Ninja</h3>
-                    <p class="tagline">Consolidate live chat from 100+ platforms</p>
-                    <p>Aggregate chat from YouTube, Twitch, TikTok, Kick, Facebook, and more into a single dashboard. Features chat overlays for OBS, text-to-speech, AI chatbots, auto-responders, and cross-platform message relaying. Completely free.</p>
+                    <p class="tagline mono">Live chat from 100+ platforms</p>
+                    <p class="blurb">Aggregate chat from YouTube, Twitch, TikTok, Kick, Facebook, and more into a single dashboard. Features chat overlays for OBS, text-to-speech, AI chatbots, auto-responders, and cross-platform message relaying. Completely free.</p>
                     <div class="links">
                         <a href="https://socialstream.ninja" class="btn btn-primary">Get Started</a>
                         <a href="https://github.com/steveseguin/social_stream" class="btn btn-secondary">GitHub</a>
                     </div>
-                </div>
+                </article>
             </div>
         </section>
 
         <section id="projects">
             <h2>Hobby Projects</h2>
             <div class="product-grid">
-                <div class="product-card">
-                    <div class="product-icon">
-                        <img src="/media/site-icons/upscaled/caption.png" alt="Caption.Ninja logo">
+                <article class="card product-card">
+                    <div class="card-icon">
+                        <img src="/media/site-icons/upscaled/caption.png" alt="" width="44" height="44" loading="lazy">
                     </div>
                     <h3>Caption.Ninja</h3>
                     <p>Real-time speech-to-text captions for live streams. Browser-based, supports multiple languages and translation. Perfect for accessibility.</p>
-                    <a href="https://caption.ninja">caption.ninja &rarr;</a>
-                </div>
-                <div class="product-card">
-                    <div class="product-icon">
-                        <img src="/media/site-icons/upscaled/electron-capture.png" alt="Electron Capture logo">
+                    <a class="card-link" href="https://caption.ninja">caption.ninja <span class="arrow">&rarr;</span></a>
+                </article>
+                <article class="card product-card">
+                    <div class="card-icon">
+                        <img src="/media/site-icons/upscaled/electron-capture.png" alt="" width="44" height="44" loading="lazy">
                     </div>
                     <h3>Electron Capture</h3>
                     <p>Desktop app for capturing browser windows into OBS. Frameless, low-latency, with global hotkeys. More reliable than OBS browser sources.</p>
-                    <a href="https://electroncapture.app">electroncapture.app &rarr;</a>
-                </div>
-                <div class="product-card">
-                    <div class="product-icon">
-                        <img src="/media/site-icons/upscaled/raspberry.png" alt="Raspberry.Ninja logo">
+                    <a class="card-link" href="https://electroncapture.app">electroncapture.app <span class="arrow">&rarr;</span></a>
+                </article>
+                <article class="card product-card">
+                    <div class="card-icon">
+                        <img src="/media/site-icons/upscaled/raspberry.png" alt="" width="44" height="44" loading="lazy">
                     </div>
                     <h3>Raspberry.Ninja</h3>
                     <p>Turn a Raspberry Pi or SBC into a headless streaming device. Perfect for remote cameras, IoT projects, and edge AI applications.</p>
-                    <a href="https://raspberry.ninja">raspberry.ninja &rarr;</a>
-                </div>
-                <div class="product-card">
-                    <div class="product-icon">
-                        <img src="/media/site-icons/upscaled/versus.png" alt="Versus.Cam logo">
+                    <a class="card-link" href="https://raspberry.ninja">raspberry.ninja <span class="arrow">&rarr;</span></a>
+                </article>
+                <article class="card product-card">
+                    <div class="card-icon">
+                        <img src="/media/site-icons/upscaled/versus.png" alt="" width="44" height="44" loading="lazy">
                     </div>
                     <h3>Versus.Cam</h3>
                     <p>Esports broadcasting control board. Monitor stream quality, adjust settings, and manage multiple feeds in real-time.</p>
-                    <a href="https://versus.cam">versus.cam &rarr;</a>
-                </div>
-                <div class="product-card">
-                    <div class="product-icon">
-                        <img src="/media/site-icons/upscaled/comms.png" alt="Comms.cam logo">
+                    <a class="card-link" href="https://versus.cam">versus.cam <span class="arrow">&rarr;</span></a>
+                </article>
+                <article class="card product-card">
+                    <div class="card-icon">
+                        <img src="/media/site-icons/upscaled/comms.png" alt="" width="44" height="44" loading="lazy">
                     </div>
                     <h3>Comms.cam</h3>
                     <p>Web-based intercom for production teams. Manage multiple groups, control access, and coordinate with flexible listening options.</p>
-                    <a href="https://comms.cam">comms.cam &rarr;</a>
-                </div>
-                <div class="product-card">
-                    <div class="product-icon">
-                        <img src="/media/site-icons/upscaled/invite.png" alt="Invite.cam logo">
+                    <a class="card-link" href="https://comms.cam">comms.cam <span class="arrow">&rarr;</span></a>
+                </article>
+                <article class="card product-card">
+                    <div class="card-icon">
+                        <img src="/media/site-icons/upscaled/invite.png" alt="" width="44" height="44" loading="lazy">
                     </div>
                     <h3>Invite.cam</h3>
                     <p>Guest management with URL obfuscation and social sign-on. Server-based security for professional streaming sessions.</p>
-                    <a href="https://invite.cam">invite.cam &rarr;</a>
-                </div>
-                <div class="product-card">
-                    <div class="product-icon">
-                        <img src="/media/site-icons/upscaled/meshcast.png" alt="Meshcast.io logo">
+                    <a class="card-link" href="https://invite.cam">invite.cam <span class="arrow">&rarr;</span></a>
+                </article>
+                <article class="card product-card">
+                    <div class="card-icon">
+                        <img src="/media/site-icons/upscaled/meshcast.png" alt="" width="44" height="44" loading="lazy">
                     </div>
                     <h3>Meshcast.io</h3>
                     <p>Free live broadcasting to small audiences; tooling designed for creators. Supports VDO.Ninja, RTMP, WHIP, and WHEP.</p>
-                    <a href="https://meshcast.io">meshcast.io &rarr;</a>
-                </div>
+                    <a class="card-link" href="https://meshcast.io">meshcast.io <span class="arrow">&rarr;</span></a>
+                </article>
             </div>
         </section>
 
@@ -891,30 +929,30 @@
             <h2>Ninjafy Tools</h2>
             <p class="section-note">Products offered by Ninjafy Tools, a registered business of Skindeep.AI Inc.</p>
             <div class="product-grid">
-                <div class="product-card">
-                    <div class="product-icon">
-                        <img src="/media/site-icons/upscaled/ninjabacker.png" alt="NinjaBacker logo">
+                <article class="card product-card">
+                    <div class="card-icon">
+                        <img src="/media/site-icons/upscaled/ninjabacker.png" alt="" width="44" height="44" loading="lazy">
                     </div>
                     <h3>NinjaBacker</h3>
                     <p>Zero-fee tipping platform for creators. Direct Stripe integration, no platform lock-in. OBS overlays and webhook support included.</p>
-                    <a href="https://ninjabacker.com">ninjabacker.com &rarr;</a>
-                </div>
-                <div class="product-card">
-                    <div class="product-icon">
-                        <img src="/media/site-icons/upscaled/ninjachatter.png" alt="NinjaChatter logo">
+                    <a class="card-link" href="https://ninjabacker.com">ninjabacker.com <span class="arrow">&rarr;</span></a>
+                </article>
+                <article class="card product-card">
+                    <div class="card-icon">
+                        <img src="/media/site-icons/upscaled/ninjachatter.png" alt="" width="44" height="44" loading="lazy">
                     </div>
-                    <h3>NinjaChatter <span class="badge-soon">Coming Soon</span></h3>
+                    <h3>NinjaChatter <span class="badge">Soon</span></h3>
                     <p>Real-time chat service with WebSocket support. Multi-tenant rooms, Discord/Patreon OAuth, moderation tools, and embeddable chat widgets.</p>
-                    <a href="https://ninjachatter.com">ninjachatter.com &rarr;</a>
-                </div>
-                <div class="product-card">
-                    <div class="product-icon">
-                        <img src="/media/site-icons/upscaled/meshcast2.png" alt="Meshcast 2.0 logo">
+                    <a class="card-link" href="https://ninjachatter.com">ninjachatter.com <span class="arrow">&rarr;</span></a>
+                </article>
+                <article class="card product-card">
+                    <div class="card-icon">
+                        <img src="/media/site-icons/upscaled/meshcast2.png" alt="" width="44" height="44" loading="lazy">
                     </div>
-                    <h3>Meshcast 2.0 <span class="badge-soon">Coming Soon</span></h3>
-                    <p>A premium live streaming gateway designed as tooling for professional content creators and small-scale broadcasters. RTMP, SRT, WHIP/WHEP, HLS, VOD, and advanced transcoding features.</p>
-                    <a href="https://app.meshcast.io">meshcast.io 2.0 &rarr;</a>
-                </div>
+                    <h3>Meshcast 2.0 <span class="badge">Soon</span></h3>
+                    <p>A premium live streaming gateway for professional creators and small-scale broadcasters. RTMP, SRT, WHIP/WHEP, HLS, VOD, and advanced transcoding.</p>
+                    <a class="card-link" href="https://app.meshcast.io">meshcast.io 2.0 <span class="arrow">&rarr;</span></a>
+                </article>
             </div>
         </section>
 
@@ -927,7 +965,7 @@
                     <p>Ninjafy Tools is my registered business (a trade name of Skindeep.AI Inc., Ontario, Canada). NinjaBacker launched in December 2025 with zero commissions, and NinjaChatter plus Meshcast 2.0 are rolling out through 2026.</p>
                 </div>
                 <div class="about-links">
-                    <h3>Connect</h3>
+                    <h3 class="mono">Connect</h3>
                     <ul>
                         <li><a href="mailto:steve@seguin.email">steve@seguin.email</a></li>
                         <li><a href="https://github.com/steveseguin" target="_blank" rel="noopener noreferrer">GitHub</a></li>
@@ -941,71 +979,84 @@
     </main>
 
     <footer>
-        <div class="footer-inner">
-            <div class="footer-section">
-                <h4>Hobby Projects</h4>
-                <ul>
-                    <li><a href="https://vdo.ninja">VDO.Ninja</a></li>
-                    <li><a href="https://socialstream.ninja">SocialStream.Ninja</a></li>
-                    <li><a href="https://caption.ninja">Caption.Ninja</a></li>
-                    <li><a href="https://electroncapture.app">Electron Capture</a></li>
-                    <li><a href="https://raspberry.ninja">Raspberry.Ninja</a></li>
-                </ul>
+        <div class="wrap">
+            <div class="footer-grid">
+                <div class="footer-section">
+                    <h4 class="mono">Hobby Projects</h4>
+                    <ul>
+                        <li><a href="https://vdo.ninja">VDO.Ninja</a></li>
+                        <li><a href="https://socialstream.ninja">SocialStream.Ninja</a></li>
+                        <li><a href="https://caption.ninja">Caption.Ninja</a></li>
+                        <li><a href="https://electroncapture.app">Electron Capture</a></li>
+                        <li><a href="https://raspberry.ninja">Raspberry.Ninja</a></li>
+                    </ul>
+                </div>
+                <div class="footer-section">
+                    <h4 class="mono">More Projects</h4>
+                    <ul>
+                        <li><a href="https://meshcast.io">Meshcast.io</a></li>
+                        <li><a href="https://versus.cam">Versus.Cam</a></li>
+                        <li><a href="https://comms.cam">Comms.cam</a></li>
+                        <li><a href="https://invite.cam">Invite.cam</a></li>
+                    </ul>
+                </div>
+                <div class="footer-section">
+                    <h4 class="mono">Ninjafy Tools</h4>
+                    <ul>
+                        <li><a href="https://ninjabacker.com">NinjaBacker</a></li>
+                        <li><a href="https://ninjachatter.com">NinjaChatter</a></li>
+                    </ul>
+                </div>
+                <div class="footer-section">
+                    <h4 class="mono">Connect</h4>
+                    <ul>
+                        <li><a href="https://docs.vdo.ninja">Documentation</a></li>
+                        <li><a href="https://github.com/steveseguin">GitHub</a></li>
+                        <li><a href="https://discord.vdo.ninja">Discord</a></li>
+                        <li><a href="mailto:steve@seguin.email">Contact</a></li>
+                    </ul>
+                </div>
             </div>
-            <div class="footer-section">
-                <h4>More Projects</h4>
-                <ul>
-                    <li><a href="https://meshcast.io">Meshcast.io</a></li>
-                    <li><a href="https://versus.cam">Versus.Cam</a></li>
-                    <li><a href="https://comms.cam">Comms.cam</a></li>
-                    <li><a href="https://invite.cam">Invite.cam</a></li>
-                </ul>
+            <div class="footer-bottom">
+                <span>&copy; <span id="copyright-year">2026</span> Steve Seguin</span>
+                <span>Ninjafy Tools is a trade name of Skindeep.AI Inc.</span>
             </div>
-            <div class="footer-section">
-                <h4>Ninjafy Tools</h4>
-                <ul>
-                    <li><a href="https://ninjabacker.com">NinjaBacker</a></li>
-                    <li><a href="https://ninjachatter.com">NinjaChatter</a></li>
-                </ul>
-            </div>
-            <div class="footer-section">
-                <h4>Connect</h4>
-                <ul>
-                    <li><a href="https://docs.vdo.ninja">Documentation</a></li>
-                    <li><a href="https://github.com/steveseguin">GitHub</a></li>
-                    <li><a href="https://discord.vdo.ninja">Discord</a></li>
-                    <li><a href="mailto:steve@seguin.email">Contact</a></li>
-                </ul>
-            </div>
-        </div>
-        <div class="footer-bottom">
-            <span>&copy; <span id="copyright-year">2026</span> Steve Seguin</span>
-            <span>Ninjafy Tools is a trade name of Skindeep.AI Inc.</span>
         </div>
     </footer>
 
     <script>
-        const menuButton = document.querySelector('.mobile-menu');
-        const siteNav = document.getElementById('site-nav');
-        const yearEl = document.getElementById('copyright-year');
+        (function () {
+            var menuButton = document.querySelector('.mobile-menu');
+            var siteNav = document.getElementById('site-nav');
+            var header = document.getElementById('site-header');
+            var yearEl = document.getElementById('copyright-year');
 
-        if (yearEl) {
-            yearEl.textContent = String(new Date().getFullYear());
-        }
+            if (yearEl) {
+                yearEl.textContent = String(new Date().getFullYear());
+            }
 
-        if (menuButton && siteNav) {
-            menuButton.addEventListener('click', function () {
-                const isOpen = siteNav.classList.toggle('open');
-                menuButton.setAttribute('aria-expanded', String(isOpen));
-            });
-
-            siteNav.querySelectorAll('a[href^="#"]').forEach(function (link) {
-                link.addEventListener('click', function () {
-                    siteNav.classList.remove('open');
-                    menuButton.setAttribute('aria-expanded', 'false');
+            if (menuButton && siteNav) {
+                menuButton.addEventListener('click', function () {
+                    var isOpen = siteNav.classList.toggle('open');
+                    menuButton.setAttribute('aria-expanded', String(isOpen));
                 });
-            });
-        }
+
+                siteNav.querySelectorAll('a').forEach(function (link) {
+                    link.addEventListener('click', function () {
+                        siteNav.classList.remove('open');
+                        menuButton.setAttribute('aria-expanded', 'false');
+                    });
+                });
+            }
+
+            if (header) {
+                var onScroll = function () {
+                    header.classList.toggle('scrolled', window.scrollY > 8);
+                };
+                onScroll();
+                window.addEventListener('scroll', onScroll, { passive: true });
+            }
+        })();
     </script>
 </body>
 </html>
