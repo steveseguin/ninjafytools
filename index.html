@@ -7,7 +7,7 @@
     <!-- Primary Meta Tags -->
     <title>Steve Seguin - Video & Streaming Tools</title>
     <meta name="title" content="Steve Seguin - Video & Streaming Tools">
-    <meta name="description" content="Video streaming and live production tools by Steve Seguin. VDO.Ninja, SocialStream.Ninja, Caption.Ninja, Meshcast.io and more. Used by 1M+ creators.">
+    <meta name="description" content="Tools by Steve Seguin for remote video, live chat, OBS, Stream Deck, recording, captions, and audio.">
     <meta name="keywords" content="Steve Seguin, VDO.Ninja, WebRTC, OBS, streaming, live production, video tools, SocialStream, Caption.Ninja, Meshcast, open source, free streaming tools, browser streaming, remote production, Ninjafy Tools">
     <meta name="author" content="Steve Seguin">
     <meta name="creator" content="Steve Seguin">
@@ -20,7 +20,7 @@
     <meta property="og:type" content="website">
     <meta property="og:url" content="https://ninjafytools.com/">
     <meta property="og:title" content="Steve Seguin - Video & Streaming Tools">
-    <meta property="og:description" content="Video streaming and live production tools by Steve Seguin. VDO.Ninja, SocialStream.Ninja, Caption.Ninja, Meshcast.io and more. Used by 1M+ creators.">
+    <meta property="og:description" content="Tools by Steve Seguin for remote video, live chat, OBS, Stream Deck, recording, captions, and audio.">
     <meta property="og:image" content="https://ninjafytools.com/media/og-image.png">
     <meta property="og:image:width" content="1200">
     <meta property="og:image:height" content="630">
@@ -33,7 +33,7 @@
     <meta name="twitter:site" content="@xyster">
     <meta name="twitter:creator" content="@xyster">
     <meta name="twitter:title" content="Steve Seguin - Video & Streaming Tools">
-    <meta name="twitter:description" content="Video streaming and live production tools by Steve Seguin. VDO.Ninja, SocialStream.Ninja, Caption.Ninja, Meshcast.io and more.">
+    <meta name="twitter:description" content="Tools by Steve Seguin for remote video, live chat, OBS, Stream Deck, recording, captions, and audio.">
     <meta name="twitter:image" content="https://ninjafytools.com/media/og-image.png">
 
     <!-- Favicons -->
@@ -797,8 +797,10 @@
             <a href="/" class="logo">Steve Seguin</a>
             <button class="mobile-menu" aria-label="Toggle menu" aria-expanded="false" aria-controls="site-nav">&#9776;</button>
             <nav id="site-nav">
-                <a href="#featured">Projects</a>
-                <a href="#ninjafy-tools">Ninjafy Tools</a>
+                <a href="#projects">Capture</a>
+                <a href="#production">Production</a>
+                <a href="#creator-tools">Create</a>
+                <a href="#developer-tools">Develop</a>
                 <a href="#about">About</a>
                 <a href="https://github.com/steveseguin" target="_blank" rel="noopener noreferrer">GitHub</a>
             </nav>
@@ -822,11 +824,11 @@
             </div>
             <div class="hero-stat">
                 <strong>100K+</strong>
-                <span>SocialStream users</span>
+                <span>Social Stream Ninja users</span>
             </div>
             <div class="hero-stat">
-                <strong>10+</strong>
-                <span>Hobby projects</span>
+                <strong>20+</strong>
+                <span>Creator tools</span>
             </div>
         </div>
     </section>
@@ -837,11 +839,11 @@
             <div class="featured-grid">
                 <article class="card featured-card">
                     <div class="card-icon">
-                        <img src="/media/site-icons/upscaled/vdo-ninja.png" alt="" width="48" height="48" loading="lazy">
+                        <img src="/media/site-icons/upscaled/vdo-ninja.png" alt="VDO.Ninja logo">
                     </div>
                     <h3>VDO.Ninja</h3>
-                    <p class="tagline mono">Remote video into OBS via WebRTC</p>
-                    <p class="blurb">Peer-to-peer video streaming directly in your browser. No downloads, no accounts, no data collection. Used by NASA, AWS, and Twitch for professional remote production. Supports up to 30 guests per room with ultra-low latency.</p>
+                    <p class="tagline mono">Remote guests, cameras, and live production</p>
+                    <p class="blurb">Bring remote cameras, screens, and guests into OBS or your production software. Use browser-based rooms, director controls, custom layouts, and recording tools without an account.</p>
                     <div class="links">
                         <a href="https://vdo.ninja" class="btn btn-primary">Open VDO.Ninja</a>
                         <a href="https://docs.vdo.ninja" class="btn btn-secondary">Documentation</a>
@@ -850,11 +852,11 @@
                 </article>
                 <article class="card featured-card">
                     <div class="card-icon">
-                        <img src="/media/site-icons/upscaled/socialstream.png" alt="" width="48" height="48" loading="lazy">
+                        <img src="/media/site-icons/upscaled/socialstream.png" alt="Social Stream Ninja logo">
                     </div>
-                    <h3>SocialStream.Ninja</h3>
-                    <p class="tagline mono">Live chat from 100+ platforms</p>
-                    <p class="blurb">Aggregate chat from YouTube, Twitch, TikTok, Kick, Facebook, and more into a single dashboard. Features chat overlays for OBS, text-to-speech, AI chatbots, auto-responders, and cross-platform message relaying. Completely free.</p>
+                    <h3>Social Stream Ninja</h3>
+                    <p class="tagline mono">Live chat, overlays, and audience interaction</p>
+                    <p class="blurb">Bring chat from YouTube, Twitch, TikTok, Kick, and more into one place. Feature messages, customize overlays and alerts, and build audience interactions with text-to-speech and Event Flow.</p>
                     <div class="links">
                         <a href="https://socialstream.ninja" class="btn btn-primary">Get Started</a>
                         <a href="https://github.com/steveseguin/social_stream" class="btn btn-secondary">GitHub</a>
@@ -864,94 +866,209 @@
         </section>
 
         <section id="projects">
-            <h2>Hobby Projects</h2>
+            <h2>Capture &amp; Stream</h2>
             <div class="product-grid">
                 <article class="card product-card">
-                    <div class="card-icon">
-                        <img src="/media/site-icons/upscaled/caption.png" alt="" width="44" height="44" loading="lazy">
+                    <div class="card-icon" aria-hidden="true">
+                        <img src="/media/site-icons/upscaled/vdo-ninja.png" alt="" loading="lazy" width="48" height="48">
                     </div>
-                    <h3>Caption.Ninja</h3>
-                    <p>Real-time speech-to-text captions for live streams. Browser-based, supports multiple languages and translation. Perfect for accessibility.</p>
-                    <a class="card-link" href="https://caption.ninja">caption.ninja <span class="arrow">&rarr;</span></a>
+                    <h3>Game Capture</h3>
+                    <p>Capture Windows games, app windows, webcams, or Spout2 video, with window audio and VDO.Ninja, WHIP, SRT, or RTMP output.</p>
+                    <a class="card-link" href="https://vdo.ninja/gamecapture">Get Game Capture <span class="arrow">&rarr;</span></a>
                 </article>
                 <article class="card product-card">
-                    <div class="card-icon">
-                        <img src="/media/site-icons/upscaled/electron-capture.png" alt="" width="44" height="44" loading="lazy">
+                    <div class="card-icon" aria-hidden="true">
+                        <img src="/media/site-icons/upscaled/vdo-ninja.png" alt="" loading="lazy" width="48" height="48">
+                    </div>
+                    <h3>VDO.Ninja Mobile</h3>
+                    <p>Publish from your phone with native camera controls, screen sharing, and local recording on Android and iOS.</p>
+                    <a class="card-link" href="https://docs.vdo.ninja/steves-helper-apps/native-mobile-app-versions">Android &amp; iOS apps <span class="arrow">&rarr;</span></a>
+                </article>
+                <article class="card product-card">
+                    <div class="card-icon" aria-hidden="true">
+                        <img src="/media/site-icons/upscaled/vdo-ninja.png" alt="" loading="lazy" width="48" height="48">
+                    </div>
+                    <h3>VDO.Ninja OBS Plugin</h3>
+                    <p>Publish directly from OBS and bring remote VDO.Ninja feeds into your scenes on Windows, macOS, and Linux.</p>
+                    <a class="card-link" href="https://steveseguin.github.io/ninja-obs-plugin/">Get the OBS plugin <span class="arrow">&rarr;</span></a>
+                </article>
+                <article class="card product-card">
+                    <div class="card-icon" aria-hidden="true">
+                        <img src="/media/site-icons/upscaled/vdo-ninja.png" alt="" loading="lazy" width="48" height="48">
+                    </div>
+                    <h3>Video Capture Extension</h3>
+                    <p>Send individual webpage videos or a browser tab with audio to VDO.Ninja from Chrome and compatible browsers.</p>
+                    <a class="card-link" href="https://github.com/steveseguin/video_capture_extension">Get the extension <span class="arrow">&rarr;</span></a>
+                </article>
+                <article class="card product-card">
+                    <div class="card-icon" aria-hidden="true">
+                        <img src="/media/site-icons/upscaled/electron-capture.png" alt="" loading="lazy" width="48" height="48">
                     </div>
                     <h3>Electron Capture</h3>
-                    <p>Desktop app for capturing browser windows into OBS. Frameless, low-latency, with global hotkeys. More reliable than OBS browser sources.</p>
-                    <a class="card-link" href="https://electroncapture.app">electroncapture.app <span class="arrow">&rarr;</span></a>
+                    <p>Open websites and video feeds in frameless desktop windows for capture, playback, or on-screen overlays.</p>
+                    <a class="card-link" href="https://electroncapture.app">Get Electron Capture <span class="arrow">&rarr;</span></a>
                 </article>
                 <article class="card product-card">
-                    <div class="card-icon">
-                        <img src="/media/site-icons/upscaled/raspberry.png" alt="" width="44" height="44" loading="lazy">
+                    <div class="card-icon" aria-hidden="true">
+                        <img src="/media/site-icons/upscaled/raspberry.png" alt="" loading="lazy" width="48" height="48">
                     </div>
                     <h3>Raspberry.Ninja</h3>
-                    <p>Turn a Raspberry Pi or SBC into a headless streaming device. Perfect for remote cameras, IoT projects, and edge AI applications.</p>
-                    <a class="card-link" href="https://raspberry.ninja">raspberry.ninja <span class="arrow">&rarr;</span></a>
-                </article>
-                <article class="card product-card">
-                    <div class="card-icon">
-                        <img src="/media/site-icons/upscaled/versus.png" alt="" width="44" height="44" loading="lazy">
-                    </div>
-                    <h3>Versus.Cam</h3>
-                    <p>Esports broadcasting control board. Monitor stream quality, adjust settings, and manage multiple feeds in real-time.</p>
-                    <a class="card-link" href="https://versus.cam">versus.cam <span class="arrow">&rarr;</span></a>
-                </article>
-                <article class="card product-card">
-                    <div class="card-icon">
-                        <img src="/media/site-icons/upscaled/comms.png" alt="" width="44" height="44" loading="lazy">
-                    </div>
-                    <h3>Comms.cam</h3>
-                    <p>Web-based intercom for production teams. Manage multiple groups, control access, and coordinate with flexible listening options.</p>
-                    <a class="card-link" href="https://comms.cam">comms.cam <span class="arrow">&rarr;</span></a>
-                </article>
-                <article class="card product-card">
-                    <div class="card-icon">
-                        <img src="/media/site-icons/upscaled/invite.png" alt="" width="44" height="44" loading="lazy">
-                    </div>
-                    <h3>Invite.cam</h3>
-                    <p>Guest management with URL obfuscation and social sign-on. Server-based security for professional streaming sessions.</p>
-                    <a class="card-link" href="https://invite.cam">invite.cam <span class="arrow">&rarr;</span></a>
-                </article>
-                <article class="card product-card">
-                    <div class="card-icon">
-                        <img src="/media/site-icons/upscaled/meshcast.png" alt="" width="44" height="44" loading="lazy">
-                    </div>
-                    <h3>Meshcast.io</h3>
-                    <p>Free live broadcasting to small audiences; tooling designed for creators. Supports VDO.Ninja, RTMP, WHIP, and WHEP.</p>
-                    <a class="card-link" href="https://meshcast.io">meshcast.io <span class="arrow">&rarr;</span></a>
+                    <p>Turn a Raspberry Pi or other computer into a camera sender, stream recorder, or unattended receiver without a browser.</p>
+                    <a class="card-link" href="https://raspberry.ninja">Get Raspberry.Ninja <span class="arrow">&rarr;</span></a>
                 </article>
             </div>
         </section>
 
-        <section id="ninjafy-tools">
-            <h2>Ninjafy Tools</h2>
-            <p class="section-note">Products offered by Ninjafy Tools, a registered business of Skindeep.AI Inc.</p>
+        <section id="production">
+            <h2>Production &amp; Controls</h2>
             <div class="product-grid">
                 <article class="card product-card">
-                    <div class="card-icon">
-                        <img src="/media/site-icons/upscaled/ninjabacker.png" alt="" width="44" height="44" loading="lazy">
+                    <div class="card-icon" aria-hidden="true">
+                        <img src="/media/site-icons/upscaled/vdo-ninja.png" alt="" loading="lazy" width="48" height="48">
                     </div>
-                    <h3>NinjaBacker</h3>
-                    <p>Zero-fee tipping platform for creators. Direct Stripe integration, no platform lock-in. OBS overlays and webhook support included.</p>
-                    <a class="card-link" href="https://ninjabacker.com">ninjabacker.com <span class="arrow">&rarr;</span></a>
+                    <h3>VDO.Ninja Live Studio</h3>
+                    <p>Arrange remote guests into custom layouts, save scenes, and open outputs for your live production.</p>
+                    <a class="card-link" href="https://vdo.ninja/studio/">Open Live Studio <span class="arrow">&rarr;</span></a>
                 </article>
                 <article class="card product-card">
-                    <div class="card-icon">
-                        <img src="/media/site-icons/upscaled/ninjachatter.png" alt="" width="44" height="44" loading="lazy">
+                    <div class="card-icon" aria-hidden="true">
+                        <img src="/media/site-icons/upscaled/vdo-ninja.png" alt="" loading="lazy" width="48" height="48">
                     </div>
-                    <h3>NinjaChatter <span class="badge">Soon</span></h3>
-                    <p>Real-time chat service with WebSocket support. Multi-tenant rooms, Discord/Patreon OAuth, moderation tools, and embeddable chat widgets.</p>
-                    <a class="card-link" href="https://ninjachatter.com">ninjachatter.com <span class="arrow">&rarr;</span></a>
+                    <h3>VDO.Ninja for Stream Deck <span class="badge">Beta</span></h3>
+                    <p>Control microphones, cameras, guests, scenes, and PTZ with Stream Deck keys and dials.</p>
+                    <a class="card-link" href="https://steveseguin.github.io/vdo-streamdeck/">Get the plugin <span class="arrow">&rarr;</span></a>
                 </article>
                 <article class="card product-card">
-                    <div class="card-icon">
-                        <img src="/media/site-icons/upscaled/meshcast2.png" alt="" width="44" height="44" loading="lazy">
+                    <div class="card-icon" aria-hidden="true">
+                        <img src="/media/site-icons/upscaled/socialstream.png" alt="" loading="lazy" width="48" height="48">
                     </div>
-                    <h3>Meshcast 2.0 <span class="badge">Soon</span></h3>
-                    <p>A premium live streaming gateway for professional creators and small-scale broadcasters. RTMP, SRT, WHIP/WHEP, HLS, VOD, and advanced transcoding.</p>
-                    <a class="card-link" href="https://app.meshcast.io">meshcast.io 2.0 <span class="arrow">&rarr;</span></a>
+                    <h3>Social Stream Ninja for Stream Deck</h3>
+                    <p>Feature chat, manage queues, run timers, and trigger Event Flow workflows from your Stream Deck.</p>
+                    <a class="card-link" href="https://socialstream.ninja/streamdeck/">Get the plugin <span class="arrow">&rarr;</span></a>
+                </article>
+                <article class="card product-card">
+                    <div class="card-icon" aria-hidden="true">
+                        <img src="/media/site-icons/upscaled/vdo-ninja.png" alt="" loading="lazy" width="48" height="48">
+                    </div>
+                    <h3>Ninja VST3 Plugin</h3>
+                    <p>Send and receive VDO.Ninja audio inside a supported DAW, with downloads for Windows and macOS.</p>
+                    <a class="card-link" href="https://steveseguin.github.io/Ninja-VST3-Plugin/">Get the VST3 plugin <span class="arrow">&rarr;</span></a>
+                </article>
+                <article class="card product-card">
+                    <div class="card-icon" aria-hidden="true">
+                        <img src="/media/site-icons/upscaled/versus.png" alt="" loading="lazy" width="48" height="48">
+                    </div>
+                    <h3>Versus.cam</h3>
+                    <p>Monitor player feeds, check stream quality, and manage camera views for esports productions.</p>
+                    <a class="card-link" href="https://versus.cam">Open Versus.cam <span class="arrow">&rarr;</span></a>
+                </article>
+                <article class="card product-card">
+                    <div class="card-icon" aria-hidden="true">
+                        <img src="/media/site-icons/upscaled/comms.png" alt="" loading="lazy" width="48" height="48">
+                    </div>
+                    <h3>Comms.cam</h3>
+                    <p>Coordinate your production crew with browser-based audio groups and separate talk and listen controls.</p>
+                    <a class="card-link" href="https://comms.cam">Open Comms.cam <span class="arrow">&rarr;</span></a>
+                </article>
+                <article class="card product-card">
+                    <div class="card-icon" aria-hidden="true">
+                        <img src="/media/site-icons/upscaled/invite.png" alt="" loading="lazy" width="48" height="48">
+                    </div>
+                    <h3>Invite.cam</h3>
+                    <p>Manage reusable guest invitations, waiting lobbies, and room access with host and helper controls.</p>
+                    <a class="card-link" href="https://app.invite.cam">Open Invite.cam <span class="arrow">&rarr;</span></a>
+                </article>
+                <article class="card product-card">
+                    <div class="card-icon" aria-hidden="true">
+                        <img src="/media/site-icons/upscaled/meshcast.png" alt="" loading="lazy" width="48" height="48">
+                    </div>
+                    <h3>Meshcast <span class="badge">Preview</span></h3>
+                    <p>Connect VDO.Ninja, RTMP, SRT, and WebRTC streaming workflows through a browser-accessible streaming gateway.</p>
+                    <a class="card-link" href="https://app.meshcast.io">Explore Meshcast 2 <span class="arrow">&rarr;</span></a>
+                </article>
+            </div>
+        </section>
+
+        <section id="creator-tools">
+            <h2>Create &amp; Share</h2>
+            <div class="product-grid">
+                <article class="card product-card">
+                    <div class="card-icon" aria-hidden="true">
+                        <img src="/media/site-icons/upscaled/caption.png" alt="" loading="lazy" width="48" height="48">
+                    </div>
+                    <h3>Caption.Ninja</h3>
+                    <p>Create live captions and translation overlays for streams, presentations, and events, with optional live text editing.</p>
+                    <a class="card-link" href="https://caption.ninja">Open Caption.Ninja <span class="arrow">&rarr;</span></a>
+                </article>
+                <article class="card product-card">
+                    <div class="card-icon" aria-hidden="true">
+                        <img src="/media/site-icons/upscaled/caption.png" alt="" loading="lazy" width="48" height="48">
+                    </div>
+                    <h3>Caption Local</h3>
+                    <p>Run speech recognition on your own computer, with speech-to-English translation and optional Caption.Ninja editing.</p>
+                    <a class="card-link" href="https://github.com/steveseguin/caption-local">Get Caption Local <span class="arrow">&rarr;</span></a>
+                </article>
+                <article class="card product-card">
+                    <div class="card-icon" aria-hidden="true">
+                        <img src="/media/site-icons/upscaled/caption.png" alt="" loading="lazy" width="48" height="48">
+                    </div>
+                    <h3>TTS.Rocks</h3>
+                    <p>Turn scripts and documents into speech with browser-based voices, voice cloning, saved projects, and audio downloads.</p>
+                    <a class="card-link" href="https://tts.rocks">Open TTS.Rocks <span class="arrow">&rarr;</span></a>
+                </article>
+                <article class="card product-card">
+                    <div class="card-icon" aria-hidden="true">
+                        <img src="/media/site-icons/upscaled/vdo-ninja.png" alt="" loading="lazy" width="48" height="48">
+                    </div>
+                    <h3>Screen Recorder</h3>
+                    <p>Record a screen, window, or tab with an optional webcam overlay and microphone, then save the recording locally.</p>
+                    <a class="card-link" href="https://vdo.ninja/screenrecorder/">Open Screen Recorder <span class="arrow">&rarr;</span></a>
+                </article>
+                <article class="card product-card">
+                    <div class="card-icon" aria-hidden="true">
+                        <img src="/media/site-icons/upscaled/vdo-ninja.png" alt="" loading="lazy" width="48" height="48">
+                    </div>
+                    <h3>Whiteboard</h3>
+                    <p>Draw, add text, and share a live canvas through VDO.Ninja or a WHIP-compatible destination.</p>
+                    <a class="card-link" href="https://vdo.ninja/whiteboard">Open Whiteboard <span class="arrow">&rarr;</span></a>
+                </article>
+                <article class="card product-card">
+                    <div class="card-icon" aria-hidden="true">
+                        <img src="/media/site-icons/upscaled/vdo-ninja.png" alt="" loading="lazy" width="48" height="48">
+                    </div>
+                    <h3>VDO.Ninja Drop</h3>
+                    <p>Share files directly between browsers using a link or QR code, with no account or app installation.</p>
+                    <a class="card-link" href="https://vdo.ninja/drop">Share files <span class="arrow">&rarr;</span></a>
+                </article>
+                <article class="card product-card">
+                    <div class="card-icon" aria-hidden="true">
+                        <img src="/media/site-icons/upscaled/vdo-ninja.png" alt="" loading="lazy" width="48" height="48">
+                    </div>
+                    <h3>VDO.Ninja Tabletop <span class="badge">Experimental</span></h3>
+                    <p>Bring maps, tokens, drawing, dice, and video together in a lightweight tabletop room.</p>
+                    <a class="card-link" href="https://github.com/steveseguin/vdo.ninja/tree/develop/tabletop">Explore Tabletop <span class="arrow">&rarr;</span></a>
+                </article>
+            </div>
+        </section>
+
+        <section id="developer-tools">
+            <h2>Developer Tools</h2>
+            <div class="product-grid">
+                <article class="card product-card">
+                    <div class="card-icon" aria-hidden="true">
+                        <img src="/media/site-icons/upscaled/vdo-ninja.png" alt="" loading="lazy" width="48" height="48">
+                    </div>
+                    <h3>VDO.Ninja SDK</h3>
+                    <p>Build custom audio, video, file-sharing, and peer-to-peer data tools for browsers and Node.js.</p>
+                    <a class="card-link" href="https://github.com/steveseguin/ninjasdk">Explore the SDK <span class="arrow">&rarr;</span></a>
+                </article>
+                <article class="card product-card">
+                    <div class="card-icon" aria-hidden="true">
+                        <img src="/media/site-icons/upscaled/vdo-ninja.png" alt="" loading="lazy" width="48" height="48">
+                    </div>
+                    <h3>VDO.Ninja MCP</h3>
+                    <p>Connect compatible AI assistants so they can exchange messages, files, and shared task state over VDO.Ninja.</p>
+                    <a class="card-link" href="https://github.com/steveseguin/ninjamcp">Explore the MCP tools <span class="arrow">&rarr;</span></a>
                 </article>
             </div>
         </section>
@@ -960,9 +1077,8 @@
             <h2>About</h2>
             <div class="about-content">
                 <div class="about-text">
-                    <p>I'm Steve Seguin, a software developer focused on video streaming and live production tools. What started as OBS.Ninja in 2018 has grown into an ecosystem of projects used by over a million creators, broadcasters, and organizations worldwide.</p>
-                    <p>Most of my projects are free and require no accounts. They're hobby projects built to solve real problems for streamers and content creators.</p>
-                    <p>Ninjafy Tools is my registered business (a trade name of Skindeep.AI Inc., Ontario, Canada). NinjaBacker launched in December 2025 with zero commissions, and NinjaChatter plus Meshcast 2.0 are rolling out through 2026.</p>
+                    <p>I'm Steve Seguin. I build tools for remote video, live production, and content creation, including VDO.Ninja and Social Stream Ninja.</p>
+                    <p>These projects help creators bring guests into a show, connect with their audience, and put together the tools that fit their workflow. Find setup guides on each project's site, or join the community on Discord.</p>
                 </div>
                 <div class="about-links">
                     <h3 class="mono">Connect</h3>
@@ -980,47 +1096,39 @@
 
     <footer>
         <div class="wrap">
-            <div class="footer-grid">
-                <div class="footer-section">
-                    <h4 class="mono">Hobby Projects</h4>
-                    <ul>
-                        <li><a href="https://vdo.ninja">VDO.Ninja</a></li>
-                        <li><a href="https://socialstream.ninja">SocialStream.Ninja</a></li>
-                        <li><a href="https://caption.ninja">Caption.Ninja</a></li>
-                        <li><a href="https://electroncapture.app">Electron Capture</a></li>
-                        <li><a href="https://raspberry.ninja">Raspberry.Ninja</a></li>
-                    </ul>
-                </div>
-                <div class="footer-section">
-                    <h4 class="mono">More Projects</h4>
-                    <ul>
-                        <li><a href="https://meshcast.io">Meshcast.io</a></li>
-                        <li><a href="https://versus.cam">Versus.Cam</a></li>
-                        <li><a href="https://comms.cam">Comms.cam</a></li>
-                        <li><a href="https://invite.cam">Invite.cam</a></li>
-                    </ul>
-                </div>
-                <div class="footer-section">
-                    <h4 class="mono">Ninjafy Tools</h4>
-                    <ul>
-                        <li><a href="https://ninjabacker.com">NinjaBacker</a></li>
-                        <li><a href="https://ninjachatter.com">NinjaChatter</a></li>
-                    </ul>
-                </div>
-                <div class="footer-section">
-                    <h4 class="mono">Connect</h4>
-                    <ul>
-                        <li><a href="https://docs.vdo.ninja">Documentation</a></li>
-                        <li><a href="https://github.com/steveseguin">GitHub</a></li>
-                        <li><a href="https://discord.vdo.ninja">Discord</a></li>
-                        <li><a href="mailto:steve@seguin.email">Contact</a></li>
-                    </ul>
-                </div>
+        <div class="footer-grid">
+            <div class="footer-section">
+                <h4 class="mono">Featured Projects</h4>
+                <ul>
+                    <li><a href="https://vdo.ninja">VDO.Ninja</a></li>
+                    <li><a href="https://socialstream.ninja">Social Stream Ninja</a></li>
+                    <li><a href="https://caption.ninja">Caption.Ninja</a></li>
+                    <li><a href="https://raspberry.ninja">Raspberry.Ninja</a></li>
+                </ul>
             </div>
-            <div class="footer-bottom">
-                <span>&copy; <span id="copyright-year">2026</span> Steve Seguin</span>
-                <span>Ninjafy Tools is a trade name of Skindeep.AI Inc.</span>
+            <div class="footer-section">
+                <h4 class="mono">Explore</h4>
+                <ul>
+                    <li><a href="#projects">Capture &amp; stream</a></li>
+                    <li><a href="#production">Production &amp; controls</a></li>
+                    <li><a href="#creator-tools">Create &amp; share</a></li>
+                    <li><a href="#developer-tools">Developer tools</a></li>
+                </ul>
             </div>
+            <div class="footer-section">
+                <h4 class="mono">Connect</h4>
+                <ul>
+                    <li><a href="https://docs.vdo.ninja">Documentation</a></li>
+                    <li><a href="https://github.com/steveseguin">GitHub</a></li>
+                    <li><a href="https://discord.vdo.ninja">Discord</a></li>
+                    <li><a href="mailto:steve@seguin.email">Contact</a></li>
+                </ul>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <span>&copy; <span id="copyright-year">2026</span> Steve Seguin</span>
+            <span>Tools for video, audio, and live production.</span>
+        </div>
         </div>
     </footer>
 
